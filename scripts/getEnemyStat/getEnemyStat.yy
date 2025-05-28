@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"getEnemyStat",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"getEnemyStat",
+  "parent":{
+    "name":"Scripts",
+    "path":"folders/Scripts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

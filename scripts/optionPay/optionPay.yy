@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"optionPay",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"optionPay",
+  "parent":{
+    "name":"Scripts",
+    "path":"folders/Scripts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

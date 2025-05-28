@@ -1,0 +1,2 @@
+attacker = noone;
+pixelDims = shader_get_uniform(shWhiteOutline,"texture_Pixel")
