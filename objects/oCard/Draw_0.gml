@@ -4,7 +4,9 @@ if(state == cardstates.available||
 	state == cardstates.selected||
 	state == cardstates.selectedoption) {
 	
-	if(!global.chooseenemystate) {
+	if(!global.chooseenemystate&&!global.enemyturn) {
+		x+=adjustposx;
+		y+=adjustposy;
 		if(collision_point(mouse_x,mouse_y,self,false,false)) {
 			if(global.hoverid == noone) {
 				global.hoverid = self;
@@ -12,6 +14,8 @@ if(state == cardstates.available||
 		} else if(global.hoverid == self) {
 			global.hoverid = noone;
 		}
+		x-=adjustposx;
+		y-=adjustposy;
 	} else {
 		draw_set_alpha(0.5);
 	}
@@ -24,8 +28,6 @@ if(state == cardstates.available||
 				makeCardAvailable(self)
 				oCardGameControl.curoptionselect = noone;
 			} else if(state == cardstates.available) {
-				depth = global.depthcount
-				global.depthcount--;
 				selectCard(self)
 			}
 			global.mousedown = false;

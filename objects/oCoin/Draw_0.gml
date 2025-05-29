@@ -1,26 +1,27 @@
 var hovering = false;
 if(state == coinstates.available||state == coinstates.selected) {
-	if(!global.chooseenemystate) {
-		if(collision_point(mouse_x,mouse_y,self,false,false)) {
+	if(!global.chooseenemystate&&!global.enemyturn) {
+		x+=adjustposx;
+		y+=adjustposy;
+		if(collision_point(mouse_x,mouse_y,self,true,false)) {
 			if(global.hoverid == noone) {
 				global.hoverid = self;
 			}
 		} else if(global.hoverid == self){
 			global.hoverid = noone;
 		}
+		x-=adjustposx;
+		y-=adjustposy;
 	} else {
 		draw_set_alpha(0.5);
 	}
-
+	
 	if(global.hoverid==self) {
 		if(global.mousedown) {
 			if(state == coinstates.selected) {
-				state = coinstates.available
+				makeCoinAvailable(self);
 			} else {
-				state = coinstates.selected
-		
-				depth = global.depthcount
-				global.depthcount--;
+				selectCoin(self);
 			}
 		
 			global.mousedown = false;

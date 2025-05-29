@@ -47,7 +47,7 @@ depth = global.depthcount-100;
 
 var anyshaderyes = false;
 
-if(global.chooseenemystate) {
+if(global.chooseenemystate&&!global.enemyturn) {
 	if(global.mousedown) {
 		var enemychoose = collision_point(mouse_x,mouse_y,oEnemy,false,true)
 		if(enemychoose!=noone&&enemychoose.attacker==noone) {
@@ -62,7 +62,7 @@ if(global.chooseenemystate) {
 			optionPay(cost,selected);
 					
 			if(enemy.curhp<=0) {
-				global.won = true;
+				global.won = 1;
 			}
 					
 			selectedattack = curoptionselect;
@@ -81,7 +81,7 @@ if(curoptionselect!=noone) {
 	var originy = curoptionselect.y-4;
 	var options = getCardPowers(curoptionselect.index);
 	for(var i = 0; i < array_length(options); i++) {
-		if(!global.chooseenemystate) {
+		if(!global.chooseenemystate&&!global.enemyturn) {
 			var cost = getOptionCost(array_get(options,i));
 			var selected = getSelected(oCard, oCoin);
 			var check = checkOption(cost, selected);
@@ -117,7 +117,28 @@ if(curoptionselect!=noone) {
 	}
 }
 
-if(!global.chooseenemystate) {
+if(array_length(enemyturnsequence)>0) {
+	global.enemyturn = true;
+	
+	enemycounter-=delta_time/1000000;
+	if(enemycounter<=0) {
+		array_delete(enemyturnsequence,0,1);
+		if(array_length(enemyturnsequence)==2) {
+			playerhealth -= oEnemy.dmg;
+			if(playerhealth<=0) {
+				global.won = -1;
+			}
+		}
+		
+		if(array_length(enemyturnsequence)>0) {
+			enemycounter = array_get(enemyturnsequence,0)
+		}
+	}
+} else {
+	global.enemyturn = false;
+}
+
+if(!global.chooseenemystate&&!global.enemyturn) {
 	if(point_in_rectangle(mouse_x,mouse_y,51-4,105-3,51+4,105+3)) {
 		//if(global.hoverid == noone) {
 			shader_set(shWhiteOutline)
@@ -127,6 +148,9 @@ if(!global.chooseenemystate) {
 			global.hoverid = self;
 			
 			if(global.mousedown) {
+				enemyturnsequence = getEnemySequence(enemyturnsequence);
+				enemycounter = array_get(enemyturnsequence,0);
+				
 				if(selectedattack!=noone) {
 					var dmginfo = getCardDmgInfo(selectedattack.index);
 					enemy.curhp -= dmginfo[0];
@@ -134,9 +158,11 @@ if(!global.chooseenemystate) {
 					discardCard(selectedattack);
 					selectedattack = noone;
 				}
+				
+				enemy.attacker = noone;
 				global.mousedown = false;
 			}
-	
+			
 			anyshaderyes = true;
 		//}
 	}
@@ -147,6 +173,8 @@ if(!global.chooseenemystate) {
 draw_sprite(sStone,0,51,105);
 draw_set_alpha(1.0);
 shader_reset();
+
+draw_sprite(sHeart,playerhealth,24,95);
 
 if(!anyshaderyes&&global.hoverid == self) {
 	global.hoverid = noone;

@@ -7,7 +7,11 @@ discard = array_create(0);
 
 coins = array_create(0);
 
+playermaxhealth = 6;
+playerhealth = 6;
+
 global.chooseenemystate = false;
+global.enemyturn = false;
 curoptionselect = noone;
 selectedattack = noone;
 
@@ -23,10 +27,11 @@ enemy.dmg = enemystats[2];
 enemy.dmgtype = enemystats[3];
 
 global.playerturn = true;
-enemyturnsequence = [];
+enemyturnsequence = array_create(0);
 enemycounter = 0;
 
-global.won = false;
+
+global.won = 0;
 global.startGame = true;
 global.mousedown = false;
 global.mouserightdown = false;

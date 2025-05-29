@@ -28,6 +28,9 @@ function resetAllCardsAndCoins() {
 
 function selectCard(card){
 	card.state = cardstates.selected;
+	
+	depth = global.depthcount
+	global.depthcount--;
 }
 
 function selectOptionCard(card){
