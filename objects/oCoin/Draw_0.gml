@@ -35,7 +35,10 @@ if(state == coinstates.available||state == coinstates.selected) {
 		adjustposy = -4;
 	} 
 } else if(state == coinstates.discarded) {
-	
+	if(global.chooseenemystate||global.enemyturn) {
+		
+		draw_set_alpha(0.5);
+	}
 }
 
 if(state == coinstates.selected) {

@@ -9,6 +9,19 @@ function discardCoin(coin){
 	global.lastdiscardangle += random_range(30,60)
 }
 
+function resetCoins(num) {
+	instance_destroy(oCoin)
+	drawCoin(num);
+	/*
+	while(instance_number(oCoin)>0) {
+		
+	}
+	
+	while(instance_number(oCoin)>num) {
+		instance
+	}*/
+}
+
 function selectCoin(coin){
 	coin.state = coinstates.selected;
 	
@@ -20,6 +33,18 @@ function makeCoinAvailable(coin){
 	coin.state = coinstates.available;
 }
 
-function drawCoin(coin){
-	
+function drawCoin(num) {
+	var angle = random_range(0,359);
+	for(var i = 0; i < num; i++) {
+		var centerx = 96;
+		var centery = 157;
+		var len = random_range(2,6);
+		
+		instance_create_layer(
+			centerx+floor(lengthdir_x(len,angle)),
+			centery+floor(lengthdir_y(len,angle)),"Cards",
+		oCoin);
+		
+		angle += random_range(100,140);
+	}
 }

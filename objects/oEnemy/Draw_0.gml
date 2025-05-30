@@ -20,6 +20,9 @@ draw_sprite(sprite_index,type,x,y)
 
 shader_reset();
 
+draw_sprite(sEnemyHPType,hptype+1,x,y)
+draw_sprite(sEnemyDMGType,dmgtype+1,x,y)
+
 draw_sprite(sEnemyHP,curhp,x,y)
 draw_sprite(sEnemyDMG,dmg,x,y)
 

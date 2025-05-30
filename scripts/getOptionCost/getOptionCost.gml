@@ -10,11 +10,24 @@ function getOptionCost(type){
 			break;
 		}
 		case 2 : {
-			
+			retarray[1] = 1;
 			break;
 		}
 		case 3 : {
-			
+			retarray[1] = 2;
+			break;
+		}
+		case 4 : {
+			retarray[0] = 2;
+			break;
+		}
+		case 5 : {
+			retarray[0] = 1;
+			break;
+		}
+		case 6 : {
+			retarray[0] = 1;
+			retarray[1] = 1;
 			break;
 		}
 	}

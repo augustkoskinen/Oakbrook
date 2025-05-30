@@ -3,7 +3,7 @@ function optionPay(cost, selected){
 	var coinneed = cost[1];
 	
 	for(var i = 0; i < cardneed; i++) {
-		discardCard(array_get(selected[0],i))
+		discardCard(array_get(selected[0],i),oCardGameControl.hand,oCardGameControl.discard)
 	}
 	
 	for(var i = 0; i < coinneed; i++) {

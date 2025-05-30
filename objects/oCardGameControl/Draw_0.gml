@@ -20,28 +20,11 @@ if(global.startGame) {
 	
 	//array_copy(deck, 0, oCardControl.cards, 0, array_length(oCardControl.cards));
     deck = array_shuffle(oCardControl.cards);
-	array_push(hand,array_get(deck,0),array_get(deck,1),array_get(deck,2));
-	array_delete(deck,0,3);
-	
-	for(var i = 0; i < array_length(hand); i++) {
-		makeCardAvailable(array_get(hand,i));
-		var card = array_get(hand,i);
-		card.x = 68+i*19;
-		card.y = 116;
+	for(var i = 0; i < oCardControl.handmax; i++) {
+		drawCard(array_get(deck,0), hand, deck);
 	}
 	
-	var angle = random_range(0,359);
-	for(var i = 0; i < oCardControl.coinmax; i++) {
-		var centerx = 96;
-		var centery = 157;
-		var len = random_range(2,6);
-		
-		instance_create_layer(
-			centerx+floor(lengthdir_x(len,angle)),
-			centery+floor(lengthdir_y(len,angle)),"Cards",
-		oCoin);
-		angle += random_range(100,140);
-	}
+	drawCoin(oCardControl.coinmax);
 }
 depth = global.depthcount-100;
 
@@ -55,13 +38,13 @@ if(global.chooseenemystate&&!global.enemyturn) {
 			
 			var cost = getOptionCost(1);
 			var selected = getSelected(oCard, oCoin);
-			var check = checkOption(cost, selected);
+			var check = checkOption(1, cost, selected);
 			
 			selectCardAttack(curoptionselect, enemychoose)
 		
 			optionPay(cost,selected);
 					
-			if(enemy.curhp<=0) {
+			if(array_get(enemyarray, 0).curhp<=0) {
 				global.won = 1;
 			}
 					
@@ -76,24 +59,24 @@ if(global.chooseenemystate&&!global.enemyturn) {
 	}
 	
 }
+
 if(curoptionselect!=noone) {
 	var originx = curoptionselect.x+20;
 	var originy = curoptionselect.y-4;
-	var options = getCardPowers(curoptionselect.index);
+	var options = getCardOptions(curoptionselect.index,curoptionselect.type);
 	for(var i = 0; i < array_length(options); i++) {
 		if(!global.chooseenemystate&&!global.enemyturn) {
 			var cost = getOptionCost(array_get(options,i));
 			var selected = getSelected(oCard, oCoin);
-			var check = checkOption(cost, selected);
+			var check = checkOption(array_get(options,i), cost, selected);
 			
 			var col = point_in_rectangle(mouse_x,mouse_y,originx,originy+i*10,originx+30,originy+i*10+9);
 			
 			if(check) {
 				if(col) {//&&global.hoverid == noone
 					if(global.mousedown) {
-						if(array_get(options,i)==1) {
-							global.chooseenemystate = true;
-						}
+						performOption(array_get(options,i), curoptionselect, hand, deck);
+						
 						global.mousedown = false;
 					}
 			
@@ -108,6 +91,8 @@ if(curoptionselect!=noone) {
 			} else {
 				draw_set_alpha(0.5);
 			}
+		} else {
+			draw_set_alpha(0.5);
 		}
 		
 		draw_sprite(sOption,array_get(options,i),originx,originy+i*10);
@@ -124,10 +109,38 @@ if(array_length(enemyturnsequence)>0) {
 	if(enemycounter<=0) {
 		array_delete(enemyturnsequence,0,1);
 		if(array_length(enemyturnsequence)==2) {
-			playerhealth -= oEnemy.dmg;
+			var dmg = array_get(enemyarray, 0).dmg+1*(attackboosted == true);
+			
+			//show_debug_message(selectedshield)
+			if(selectedshield!=noone) {
+				dmg -= getCardDmgInfo(selectedshield.index)[0];
+				
+				if((array_get(enemyarray, 0).hptype==1&&selectedshield.type==0)||
+					(array_get(enemyarray, 0).hptype==2&&selectedshield.type==1)||
+					(array_get(enemyarray, 0).hptype==3&&selectedshield.type==2)||
+					(array_get(enemyarray, 0).hptype==0&&selectedshield.type==3)) {
+					dmg++;
+				} else if(((array_get(enemyarray, 0).type==0&&selectedshield.type==1)||
+					(array_get(enemyarray, 0).hptype==1&&selectedshield.type==2)||
+					(array_get(enemyarray, 0).hptype==2&&selectedshield.type==3)||
+					(array_get(enemyarray, 0).hptype==3&&selectedshield.type==0))) {
+					dmg--;
+				}
+			}
+			
+			playerhealth -= max(dmg,0);
+			
 			if(playerhealth<=0) {
 				global.won = -1;
 			}
+			attackboosted = false;
+		} else if(array_length(enemyturnsequence)==1) {
+			for(var i = 0; i < oCardControl.handmax; i++) {
+				if(array_length(deck)>0)
+					drawCard(array_get(deck,0), hand, deck);
+			}
+			
+			resetCoins(oCardControl.coinmax);
 		}
 		
 		if(array_length(enemyturnsequence)>0) {
@@ -148,18 +161,7 @@ if(!global.chooseenemystate&&!global.enemyturn) {
 			global.hoverid = self;
 			
 			if(global.mousedown) {
-				enemyturnsequence = getEnemySequence(enemyturnsequence);
-				enemycounter = array_get(enemyturnsequence,0);
-				
-				if(selectedattack!=noone) {
-					var dmginfo = getCardDmgInfo(selectedattack.index);
-					enemy.curhp -= dmginfo[0];
-			
-					discardCard(selectedattack);
-					selectedattack = noone;
-				}
-				
-				enemy.attacker = noone;
+				discardAll(true)
 				global.mousedown = false;
 			}
 			

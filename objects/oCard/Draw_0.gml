@@ -1,12 +1,43 @@
 var hovering = false;
-//show_debug_message(state)
+
+switch state {
+	case cardstates.available : {
+		targetx = holdx;
+		targety = 116;
+		break;
+	}
+	case cardstates.selected : {
+		
+		break;
+	}
+	case cardstates.selectedoption : {
+		
+		break;
+	}
+	case cardstates.selectedattack : {
+		targetx = holdx;
+		targety = 75;
+		break;
+	}
+	case cardstates.selectedshield : {
+		targetx = 21;
+		targety = 109;
+		break;
+	}
+	case cardstates.discarded : {
+		targetx = 42;
+		targety = 138;
+		break;
+	}
+}
+
 if(state == cardstates.available||
 	state == cardstates.selected||
 	state == cardstates.selectedoption) {
 	
 	if(!global.chooseenemystate&&!global.enemyturn) {
-		x+=adjustposx;
-		y+=adjustposy;
+		x = targetx+adjustposx;
+		y = targety+adjustposy;
 		if(collision_point(mouse_x,mouse_y,self,false,false)) {
 			if(global.hoverid == noone) {
 				global.hoverid = self;
@@ -14,8 +45,6 @@ if(state == cardstates.available||
 		} else if(global.hoverid == self) {
 			global.hoverid = noone;
 		}
-		x-=adjustposx;
-		y-=adjustposy;
 	} else {
 		draw_set_alpha(0.5);
 	}
@@ -55,19 +84,53 @@ if(state == cardstates.available||
 		shader_set_uniform_f(pixelDims,texelW,texelH)
 	}
 
-	draw_sprite(sprite_index,index,x+adjustposx,y+adjustposy);
+	draw_sprite(sprite_index,index+type*15,targetx+adjustposx,targety+adjustposy);
 
 	draw_set_alpha(1.0);
 	shader_reset()
-} else if(state==cardstates.discarded||state==cardstates.selectedattack||state==cardstates.selectedshield){
+} else if(state==cardstates.discarded){
+	if(!global.chooseenemystate&&!global.enemyturn) {
+		x = targetx;
+		y = targety;
+		if(collision_point(mouse_x,mouse_y,self,false,false)) {
+			if(global.hoverid == noone) {
+				global.hoverid = self;
+			}
+		} else if(global.hoverid == self) {
+			global.hoverid = noone;
+		}
+	} else {
+		draw_set_alpha(0.5);
+	}
+	
+	if(global.hoverid == self) {
+		shader_set(shWhiteOutline)
+		var texelW = texture_get_texel_width(sprite_get_texture(sprite_index,index))
+		var texelH = texture_get_texel_height(sprite_get_texture(sprite_index,index))
+		shader_set_uniform_f(pixelDims,texelW,texelH)
+		
+		if(global.mousedown) {
+			discardAll(true)
+			moveDiscardToDeck(oCardGameControl.deck,oCardGameControl.discard)
+			global.hoverid = noone;
+			global.mousedown = false;
+		}
+	}
+	
+	depth = -array_get_index(oCardGameControl.discard,id)
+	
+	draw_sprite(sprite_index,index+type*15,targetx,targety);
+	
+	shader_reset();
+	draw_set_alpha(1.0);
+}	else if (state==cardstates.selectedattack||state==cardstates.selectedshield){
 	if(global.chooseenemystate) {
 		draw_set_alpha(0.5);
 	}
 	
-	draw_sprite(sprite_index,index,x,y);
+	draw_sprite(sprite_index,index+type*15,targetx,targety);
 	
 	draw_set_alpha(1.0);
-
 }  else if(state==cardstates.indeck){
 	
 }

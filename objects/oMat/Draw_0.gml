@@ -1,0 +1,1 @@
+draw_sprite(sprite_index,(array_length(oCardGameControl.deck)!=0),0,0);

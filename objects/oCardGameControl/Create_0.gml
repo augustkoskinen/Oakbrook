@@ -14,17 +14,10 @@ global.chooseenemystate = false;
 global.enemyturn = false;
 curoptionselect = noone;
 selectedattack = noone;
+selectedshield = noone;
+attackboosted = false;
 
 pixelDims = shader_get_uniform(shWhiteOutline,"texture_Pixel")
-
-enemy = instance_create_layer(87,40,"Cards",oEnemy)
-enemy.type = 1;
-var enemystats = getEnemyStat(enemy.type);
-enemy.hp = enemystats[0];
-enemy.curhp = enemystats[0];
-enemy.hptype = enemystats[1];
-enemy.dmg = enemystats[2];
-enemy.dmgtype = enemystats[3];
 
 global.playerturn = true;
 enemyturnsequence = array_create(0);
@@ -38,3 +31,15 @@ global.mouserightdown = false;
 global.depthcount = -1;
 global.hoverid = noone;
 global.lastdiscardangle = random_range(0,359)
+
+enemyarray = array_create(0);
+var enemy =  instance_create_layer(87,40,"Cards",oEnemy)
+enemy.type = 1;
+var enemystats = getEnemyStat(enemy.type);
+enemy.hp = enemystats[0];
+enemy.curhp = enemystats[0];
+enemy.hptype = enemystats[1];
+enemy.dmg = enemystats[2];
+enemy.dmgtype = enemystats[3];
+
+array_push(enemyarray, enemy)
