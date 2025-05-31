@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"discardCard",
   "parent":{
-    "name":"Scripts",
-    "path":"folders/Scripts.yy",
+    "name":"CardGame",
+    "path":"folders/Scripts/CardGame.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

@@ -1,20 +1,3 @@
-if(global.mousedown||global.mouserightdown) {
-	resetAllCardsAndCoins()
-}
-
-if(mouse_check_button_pressed(mb_left)) {
-	global.mousedown = true;
-} else {
-	global.mousedown = false;
-}
-
-
-if(mouse_check_button_pressed(mb_right)) {
-	global.mouserightdown = true;
-} else {
-	global.mouserightdown = false;
-}
-
 if(global.startGame) {
 	global.startGame = false;
 	

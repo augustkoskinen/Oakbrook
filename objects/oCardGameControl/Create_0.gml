@@ -1,5 +1,5 @@
-centerx = 192/2
-centery = 192/2
+global.camx = 192/2;
+global.camy = 192/2;
 
 deck = array_create(0);
 hand = array_create(0);
@@ -25,9 +25,6 @@ enemycounter = 0;
 
 
 global.won = 0;
-global.startGame = true;
-global.mousedown = false;
-global.mouserightdown = false;
 global.depthcount = -1;
 global.hoverid = noone;
 global.lastdiscardangle = random_range(0,359)
