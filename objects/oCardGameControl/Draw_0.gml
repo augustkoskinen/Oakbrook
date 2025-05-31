@@ -1,6 +1,5 @@
 if(global.startGame) {
 	global.startGame = false;
-	
 	//array_copy(deck, 0, oCardControl.cards, 0, array_length(oCardControl.cards));
     deck = array_shuffle(oCardControl.cards);
 	for(var i = 0; i < oCardControl.handmax; i++) {
@@ -26,7 +25,7 @@ if(global.chooseenemystate&&!global.enemyturn) {
 			selectCardAttack(curoptionselect, enemychoose)
 		
 			optionPay(cost,selected);
-					
+			
 			if(array_get(enemyarray, 0).curhp<=0) {
 				global.won = 1;
 			}
@@ -135,7 +134,7 @@ if(array_length(enemyturnsequence)>0) {
 }
 
 if(!global.chooseenemystate&&!global.enemyturn) {
-	if(point_in_rectangle(mouse_x,mouse_y,51-4,105-3,51+4,105+3)) {
+	if(point_in_rectangle(mouse_x,mouse_y,51-16-4,105-24-3,51-16+4,105-24+3)) {
 		//if(global.hoverid == noone) {
 			shader_set(shWhiteOutline)
 			var texelW = texture_get_texel_width(sprite_get_texture(sStone,0))
@@ -155,11 +154,11 @@ if(!global.chooseenemystate&&!global.enemyturn) {
 	draw_set_alpha(0.5);
 }
 
-draw_sprite(sStone,0,51,105);
+draw_sprite(sStone,0,51-16,105-24);
 draw_set_alpha(1.0);
 shader_reset();
 
-draw_sprite(sHeart,playerhealth,24,95);
+draw_sprite(sHeart,playerhealth,24-16,95-24);
 
 if(!anyshaderyes&&global.hoverid == self) {
 	global.hoverid = noone;

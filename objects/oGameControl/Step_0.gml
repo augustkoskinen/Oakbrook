@@ -22,10 +22,17 @@ if(global.actiontake!=-1) {
 			break;
 		}
 		case 1 : {
-			//global.camx = oCam.CamW/2;
-			//global.camy = oCam.CamH/2;
-			//global.startGame = true;
-			//room_goto(rmCardMat)
+			global.startGame = true;
+			room_goto(rmCardMat)
+			
+			with(oTree)
+				visible = false;
+			with(oPath)
+				visible = false;
+			with(oSpot)
+				visible = false;
+
+			global.immediatecamswitch = true;
 			break;
 		}
 		case 2 : {
@@ -33,5 +40,32 @@ if(global.actiontake!=-1) {
 			break;
 		}
 	}
+		
+	global.actiontake = -1;
 }
-show_debug_message("here")
+
+if(global.won!=0) {
+	switch(global.won) {
+		case -1 : {
+			room_goto(rmOverworld)
+			
+			global.immediatecamswitch = true;
+			break;
+		}
+		case 1 : {
+			room_goto(rmOverworld)
+			
+			global.immediatecamswitch = true;
+			break;
+		}
+	}
+	
+	with(oTree)
+		visible = true;
+	with(oPath)
+		visible = true;
+	with(oSpot)
+		visible = true;
+		
+	global.won = 0;
+}

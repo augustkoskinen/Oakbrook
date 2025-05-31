@@ -1,5 +1,5 @@
-global.camx = 192/2;
-global.camy = 192/2;
+global.camx = camera_get_view_width(view_camera[0])/2;
+global.camy = camera_get_view_height(view_camera[0])/2;
 
 deck = array_create(0);
 hand = array_create(0);
@@ -23,14 +23,12 @@ global.playerturn = true;
 enemyturnsequence = array_create(0);
 enemycounter = 0;
 
-
-global.won = 0;
 global.depthcount = -1;
 global.hoverid = noone;
 global.lastdiscardangle = random_range(0,359)
 
 enemyarray = array_create(0);
-var enemy =  instance_create_layer(87,40,"Cards",oEnemy)
+var enemy =  instance_create_layer(87-16,40-24,"Cards",oEnemy)
 enemy.type = 1;
 var enemystats = getEnemyStat(enemy.type);
 enemy.hp = enemystats[0];

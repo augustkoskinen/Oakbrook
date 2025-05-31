@@ -12,3 +12,6 @@ global.mouserightdown = false;
 
 global.level = 1;
 global.actiontake = -1;
+global.won = 0;
+
+global.immediatecamswitch = false;

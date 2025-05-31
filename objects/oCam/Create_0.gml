@@ -1,6 +1,8 @@
 CamW = 320;
 CamH = 320;
 
+persistent = true;
+
 camera_set_view_pos(
 	view_camera[0],
 	global.camx - (CamW / 2),

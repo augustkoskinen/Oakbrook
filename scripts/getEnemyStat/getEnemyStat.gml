@@ -6,7 +6,7 @@ function getEnemyStat(type){
 			break;
 		}
 		case 1 : {
-			retarray = [11,0,1,0];
+			retarray = [2,0,1,0];
 			break;
 		}
 		case 2 : {

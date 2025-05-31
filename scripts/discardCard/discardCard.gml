@@ -33,6 +33,12 @@ function discardAll(doDamage) {
 				
 	resetAllCardsAndCoins();
 	array_get(oCardGameControl.enemyarray, 0).attacker = noone;
+	
+	if(array_get(oCardGameControl.enemyarray, 0).curhp<=0) {
+		global.won = 1;
+			
+		moveDiscardToDeck(oCardGameControl.deck,oCardGameControl.discard);
+	}
 }
 
 function discardCard(card, hand, discard){
@@ -58,18 +64,13 @@ function moveDiscardToDeck(deck, discard) {
 }
 
 function resetAllCardsAndCoins() {
-	show_debug_message("=======")
-	show_debug_message(state)
 	with(oCard) {
 		if(state!=cardstates.discarded
 			&&state!=cardstates.indeck
 			&&state!=cardstates.selectedattack
 			&&state!=cardstates.selectedshield) {
 			makeCardAvailable(self);
-			show_debug_message(state)
 		}
-		if(state!=cardstates.indeck)
-			show_debug_message(state)
 	}
 	
 	with(oCoin) {
@@ -121,6 +122,6 @@ function drawCard(card, hand, deck){
 		array_delete(deck,0,1);
 		
 		makeCardAvailable(card);
-		card.holdx = 68+(array_length(hand)-1)*19;
+		card.holdx = 68-16+(array_length(hand)-1)*19;
 	}
 }

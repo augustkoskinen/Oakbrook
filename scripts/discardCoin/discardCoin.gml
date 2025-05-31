@@ -3,8 +3,8 @@ function discardCoin(coin){
 		
 	var len = random_range(1,4)*(irandom_range(0,1)==0?1:-1);
 		
-	coin.x = 31+lengthdir_x(len,global.lastdiscardangle);
-	coin.y = 156+lengthdir_y(len,global.lastdiscardangle);
+	coin.x = 31-16+lengthdir_x(len,global.lastdiscardangle);
+	coin.y = 156-24+lengthdir_y(len,global.lastdiscardangle);
 		
 	global.lastdiscardangle += random_range(30,60)
 }
@@ -36,8 +36,8 @@ function makeCoinAvailable(coin){
 function drawCoin(num) {
 	var angle = random_range(0,359);
 	for(var i = 0; i < num; i++) {
-		var centerx = 96;
-		var centery = 157;
+		var centerx = 96-16;
+		var centery = 157-24;
 		var len = random_range(2,6);
 		
 		instance_create_layer(
