@@ -58,8 +58,8 @@
   },
   "origin":9,
   "parent":{
-    "name":"Sprites",
-    "path":"folders/Sprites.yy",
+    "name":"CardGame",
+    "path":"folders/Sprites/CardGame.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

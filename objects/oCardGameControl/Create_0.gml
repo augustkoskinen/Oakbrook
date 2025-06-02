@@ -7,9 +7,6 @@ discard = array_create(0);
 
 coins = array_create(0);
 
-playermaxhealth = 6;
-playerhealth = 6;
-
 global.chooseenemystate = false;
 global.enemyturn = false;
 curoptionselect = noone;
@@ -30,7 +27,7 @@ global.lastdiscardangle = random_range(0,359)
 enemyarray = array_create(0);
 var enemy =  instance_create_layer(87-16,40-24,"Cards",oEnemy)
 enemy.type = 1;
-var enemystats = getEnemyStat(enemy.type);
+var enemystats = getEnemyStat(global.level);
 enemy.hp = enemystats[0];
 enemy.curhp = enemystats[0];
 enemy.hptype = enemystats[1];

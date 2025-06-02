@@ -9,7 +9,7 @@ else {
 	}
 	
 	if(cancome&&level==global.level+1) {
-		if(collision_point(mouse_x,mouse_y,self,false,false)) {
+		if(collision_point(mouse_x,mouse_y,self,false,false)&&global.overworldaction==-1) {
 			image_index = 1;
 			if(global.mousedown) {
 				global.level++;

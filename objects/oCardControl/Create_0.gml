@@ -1,6 +1,8 @@
 cards = array_create(0)
 coinmax = 3;
 handmax = 3;
+playermaxhealth = 6;
+global.playerhealth = 6;
 
 for(var i = 0; i < 9; i++) {
 	var addcard = instance_create_layer(0,0,"Cards",oCard)

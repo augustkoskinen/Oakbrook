@@ -110,10 +110,12 @@ if(array_length(enemyturnsequence)>0) {
 				}
 			}
 			
-			playerhealth -= max(dmg,0);
+			global.playerhealth -= max(dmg,0);
 			
-			if(playerhealth<=0) {
-				global.won = -1;
+			if(global.playerhealth<=0) {//LOSE CONDITION ================================
+				//global.won = -1;
+				//moveDiscardToDeck(deck,discard);
+				
 			}
 			attackboosted = false;
 		} else if(array_length(enemyturnsequence)==1) {
@@ -158,7 +160,7 @@ draw_sprite(sStone,0,51-16,105-24);
 draw_set_alpha(1.0);
 shader_reset();
 
-draw_sprite(sHeart,playerhealth,24-16,95-24);
+draw_sprite(sHeart,global.playerhealth,24-16,95-24);
 
 if(!anyshaderyes&&global.hoverid == self) {
 	global.hoverid = noone;

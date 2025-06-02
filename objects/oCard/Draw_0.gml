@@ -118,7 +118,7 @@ if(global.won==0) {
 			}
 		}
 		
-		if(global.won==0) 
+		if(global.won==0)
 			depth = -array_get_index(oCardGameControl.discard,id)
 	
 		draw_sprite(sprite_index,index+type*15,targetx,targety);

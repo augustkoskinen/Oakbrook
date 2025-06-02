@@ -1,3 +1,4 @@
+//setup
 spotlist = array_create(0);
 
 var spacedis = 96;
@@ -33,10 +34,10 @@ for(var curlevel = 2; curlevel < floor(room_height/spacedis)-1; curlevel++) {
 			if(swap)
 				spot.type = 1;
 			else
-				spot.type = 2;
+				spot.type = 3//irandom_range(2,5);
 		} else {
 			if(swap)
-				spot.type = 2;
+				spot.type = 3//irandom_range(2,5);
 			else
 				spot.type = 1;
 		}
@@ -101,26 +102,9 @@ while(ds_list_size(colinst)>0) {
 	ds_list_delete(colinst,0);
 }
 
-/*
-rep = irandom_range(5,15);
-for(var i = 0; i < rep; i++) {
-		
-	var choosex = 0;
-	var choosey = random_range(cury-spacedis/2,cury+spacedis/2)
-		
-	var repeatbool = true;
-	var repeatcount = 100;
-	while(repeatbool&&repeatcount>0) {
-		choosex = random_range(curx-spotsepdis-64,curx+spotsepdis+64);
-			
-		repeatbool = false;
-		for(var j = 0; j < array_length(curspots);j++) {
-			if(abs(array_get(curspots,j).x-choosex)<treesepdis)
-				repeatbool = true;
-		}
-		repeatcount--;
-	}
-		
-	instance_create_depth(choosex,choosey,0,oTree);
-}
-*/
+
+//vars
+choosecards = array_create(0);
+startaction = true;
+
+pixelDims = shader_get_uniform(shWhiteOutline,"texture_Pixel")

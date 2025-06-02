@@ -36,7 +36,19 @@ if(global.actiontake!=-1) {
 			break;
 		}
 		case 2 : {
-			
+			global.playerhealth++;
+			break;
+		}
+		case 3: {
+			global.overworldaction = 1;
+			break;
+		}
+		case 4: {
+			global.overworldaction = 2;
+			break;
+		}
+		case 5: {
+			global.overworldaction = 3;
 			break;
 		}
 	}

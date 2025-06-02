@@ -24,7 +24,11 @@ function discardAll(doDamage) {
 	while(0 != array_length(oCardGameControl.hand)) {
 		var card = array_get(oCardGameControl.hand,0);
 		discardCard(array_get(oCardGameControl.hand,0).id,oCardGameControl.hand,oCardGameControl.discard);
-		//show_debug_message(card.state)
+	}
+	
+	if(oCardGameControl.selectedshield!=noone) {
+		discardCard(oCardGameControl.selectedshield,oCardGameControl.selectedshield,oCardGameControl.discard)
+		oCardGameControl.selectedshield = noone;
 	}
 				
 	with(oCoin) {
