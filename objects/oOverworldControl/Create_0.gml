@@ -34,10 +34,10 @@ for(var curlevel = 2; curlevel < floor(room_height/spacedis)-1; curlevel++) {
 			if(swap)
 				spot.type = 1;
 			else
-				spot.type = 3//irandom_range(2,5);
+				spot.type = irandom_range(2,5);
 		} else {
 			if(swap)
-				spot.type = 3//irandom_range(2,5);
+				spot.type = irandom_range(2,5);
 			else
 				spot.type = 1;
 		}
@@ -105,6 +105,7 @@ while(ds_list_size(colinst)>0) {
 
 //vars
 choosecards = array_create(0);
+trashselect = array_create(0);
 startaction = true;
 
 pixelDims = shader_get_uniform(shWhiteOutline,"texture_Pixel")

@@ -28,7 +28,12 @@ function getCardOptions(index,type) {
 	}
 	
 	switch(index) {
-		case (61) : {
+		case (16) : {
+			array_push(retarray,7)
+			break;
+		}
+		case (17) : {
+			array_push(retarray,8)
 			break;
 		}
 	}

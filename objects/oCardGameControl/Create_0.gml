@@ -21,7 +21,6 @@ enemyturnsequence = array_create(0);
 enemycounter = 0;
 
 global.depthcount = -1;
-global.hoverid = noone;
 global.lastdiscardangle = random_range(0,359)
 
 enemyarray = array_create(0);

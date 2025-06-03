@@ -10,7 +10,7 @@ function discardAll(doDamage) {
 			(array_get(oCardGameControl.enemyarray, 0).hptype==2&&oCardGameControl.selectedattack.type==3)||
 			(array_get(oCardGameControl.enemyarray, 0).hptype==3&&oCardGameControl.selectedattack.type==0)) {
 			array_get(oCardGameControl.enemyarray, 0).curhp--;
-		} else if(dmginfo[0]>0&&((array_get(oCardGameControl.enemyarray, 0).type==1&&oCardGameControl.selectedattack.type==0)||
+		} else if(dmginfo[0]>0&&((array_get(oCardGameControl.enemyarray, 0).hptype==1&&oCardGameControl.selectedattack.type==0)||
 			(array_get(oCardGameControl.enemyarray, 0).hptype==2&&oCardGameControl.selectedattack.type==1)||
 			(array_get(oCardGameControl.enemyarray, 0).hptype==3&&oCardGameControl.selectedattack.type==2)||
 			(array_get(oCardGameControl.enemyarray, 0).hptype==0&&oCardGameControl.selectedattack.type==3))) {
@@ -24,11 +24,6 @@ function discardAll(doDamage) {
 	while(0 != array_length(oCardGameControl.hand)) {
 		var card = array_get(oCardGameControl.hand,0);
 		discardCard(array_get(oCardGameControl.hand,0).id,oCardGameControl.hand,oCardGameControl.discard);
-	}
-	
-	if(oCardGameControl.selectedshield!=noone) {
-		discardCard(oCardGameControl.selectedshield,oCardGameControl.selectedshield,oCardGameControl.discard)
-		oCardGameControl.selectedshield = noone;
 	}
 				
 	with(oCoin) {

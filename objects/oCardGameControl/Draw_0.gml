@@ -25,10 +25,6 @@ if(global.chooseenemystate&&!global.enemyturn) {
 			selectCardAttack(curoptionselect, enemychoose)
 		
 			optionPay(cost,selected);
-			
-			if(array_get(enemyarray, 0).curhp<=0) {
-				global.won = 1;
-			}
 					
 			selectedattack = curoptionselect;
 			resetAllCardsAndCoins();
@@ -97,17 +93,21 @@ if(array_length(enemyturnsequence)>0) {
 			if(selectedshield!=noone) {
 				dmg -= getCardDmgInfo(selectedshield.index)[0];
 				
-				if((array_get(enemyarray, 0).hptype==1&&selectedshield.type==0)||
-					(array_get(enemyarray, 0).hptype==2&&selectedshield.type==1)||
-					(array_get(enemyarray, 0).hptype==3&&selectedshield.type==2)||
-					(array_get(enemyarray, 0).hptype==0&&selectedshield.type==3)) {
+				if((array_get(enemyarray, 0).dmgtype==1&&selectedshield.type==0)||
+					(array_get(enemyarray, 0).dmgtype==2&&selectedshield.type==1)||
+					(array_get(enemyarray, 0).dmgtype==3&&selectedshield.type==2)||
+					(array_get(enemyarray, 0).dmgtype==0&&selectedshield.type==3)) {
 					dmg++;
-				} else if(((array_get(enemyarray, 0).type==0&&selectedshield.type==1)||
-					(array_get(enemyarray, 0).hptype==1&&selectedshield.type==2)||
-					(array_get(enemyarray, 0).hptype==2&&selectedshield.type==3)||
-					(array_get(enemyarray, 0).hptype==3&&selectedshield.type==0))) {
+				} else if(((array_get(enemyarray, 0).dmgtype==0&&selectedshield.type==1)||
+					(array_get(enemyarray, 0).dmgtype==1&&selectedshield.type==2)||
+					(array_get(enemyarray, 0).dmgtype==2&&selectedshield.type==3)||
+					(array_get(enemyarray, 0).dmgtype==3&&selectedshield.type==0))) {
 					dmg--;
 				}
+				
+	
+				discardCard(selectedshield,selectedshield,discard);
+				selectedshield = noone;
 			}
 			
 			global.playerhealth -= max(dmg,0);

@@ -22,6 +22,7 @@ if(global.actiontake!=-1) {
 			break;
 		}
 		case 1 : {
+			global.hoverid = noone;
 			global.startGame = true;
 			room_goto(rmCardMat)
 			
@@ -36,7 +37,7 @@ if(global.actiontake!=-1) {
 			break;
 		}
 		case 2 : {
-			global.playerhealth++;
+			global.overworldaction = 4;
 			break;
 		}
 		case 3: {

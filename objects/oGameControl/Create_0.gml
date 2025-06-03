@@ -16,3 +16,4 @@ global.won = 0;
 global.overworldaction = -1;
 
 global.immediatecamswitch = false;
+global.hoverid = noone;

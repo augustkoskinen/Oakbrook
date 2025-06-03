@@ -50,6 +50,7 @@
     {"name":"sEnemyHP","order":6,"path":"sprites/sEnemyHP/sEnemyHP.yy",},
     {"name":"sEnemyHPType","order":7,"path":"sprites/sEnemyHPType/sEnemyHPType.yy",},
     {"name":"sHeart","order":8,"path":"sprites/sHeart/sHeart.yy",},
+    {"name":"sHPUp","order":5,"path":"sprites/sHPUp/sHPUp.yy",},
     {"name":"sOption","order":9,"path":"sprites/sOption/sOption.yy",},
     {"name":"sPath","order":1,"path":"sprites/sPath/sPath.yy",},
     {"name":"sPlayer","order":2,"path":"sprites/sPlayer/sPlayer.yy",},

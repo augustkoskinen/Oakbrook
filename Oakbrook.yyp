@@ -74,6 +74,7 @@
     {"id":{"name":"sEnemyHP","path":"sprites/sEnemyHP/sEnemyHP.yy",},},
     {"id":{"name":"sEnemyHPType","path":"sprites/sEnemyHPType/sEnemyHPType.yy",},},
     {"id":{"name":"sHeart","path":"sprites/sHeart/sHeart.yy",},},
+    {"id":{"name":"sHPUp","path":"sprites/sHPUp/sHPUp.yy",},},
     {"id":{"name":"sMapSpot","path":"sprites/sMapSpot/sMapSpot.yy",},},
     {"id":{"name":"sOption","path":"sprites/sOption/sOption.yy",},},
     {"id":{"name":"sPath","path":"sprites/sPath/sPath.yy",},},

@@ -54,6 +54,12 @@ function performOption(index, card, hand, deck) {
 			
 			break;
 		}
+		case 7: {
+			drawCard(array_get(deck,0),hand,deck);
+		}
+		case 8: {
+			drawCoin(1);
+		}
 	}
 	
 	if(index!=1&&index!=2) {

@@ -30,6 +30,12 @@ function getOptionCost(type){
 			retarray[1] = 1;
 			break;
 		}
+		case 7 : {
+			break;
+		}
+		case 8 : {
+			break;
+		}
 	}
 	
 	return retarray;

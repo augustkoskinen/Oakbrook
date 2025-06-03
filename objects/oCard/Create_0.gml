@@ -4,6 +4,7 @@ adjustposx = 0;
 adjustposy = 0;
 
 holdx = 0;
+holdy = 0;
 
 pixelDims = shader_get_uniform(shWhiteOutline,"texture_Pixel")
 
@@ -16,5 +17,6 @@ enum cardstates {
 	selectedattack,
 	selectedshield,
 	discarded,
-	indeck
+	indeck,
+	choosecard
 }

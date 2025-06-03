@@ -29,6 +29,11 @@ switch state {
 		targety = 138-24;
 		break;
 	}
+	case cardstates.choosecard : {
+		targetx = holdx;
+		targety = holdy;
+		break;
+	}
 }
 
 if(global.won==0) {
@@ -84,8 +89,11 @@ if(global.won==0) {
 			var texelH = texture_get_texel_height(sprite_get_texture(sprite_index,index))
 			shader_set_uniform_f(pixelDims,texelW,texelH)
 		}
-
-		draw_sprite(sprite_index,index+type*15,targetx+adjustposx,targety+adjustposy);
+		
+		if(index<=15)
+			draw_sprite(sprite_index,index+type*15,targetx+adjustposx,targety+adjustposy);
+		else
+			draw_sprite(sprite_index,index+45,targetx+adjustposx,targety+adjustposy);
 
 		draw_set_alpha(1.0);
 		shader_reset()
@@ -121,7 +129,10 @@ if(global.won==0) {
 		if(global.won==0)
 			depth = -array_get_index(oCardGameControl.discard,id)
 	
-		draw_sprite(sprite_index,index+type*15,targetx,targety);
+		if(index<=15)
+			draw_sprite(sprite_index,index+type*15,targetx,targety);
+		else
+			draw_sprite(sprite_index,index+45,targetx,targety);
 	
 		shader_reset();
 		draw_set_alpha(1.0);
@@ -129,8 +140,10 @@ if(global.won==0) {
 		if(global.chooseenemystate) {
 			draw_set_alpha(0.5);
 		}
-	
-		draw_sprite(sprite_index,index+type*15,targetx,targety);
+		if(index<=15)
+			draw_sprite(sprite_index,index+type*15,targetx,targety);
+		else 
+			draw_sprite(sprite_index,index+45,targetx,targety);
 	
 		draw_set_alpha(1.0);
 	}  else if(state==cardstates.indeck){
