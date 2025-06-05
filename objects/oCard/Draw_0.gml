@@ -21,12 +21,12 @@ switch state {
 	}
 	case cardstates.selectedshield : {
 		targetx = 21-16;
-		targety = 109-24;
+		targety = 109-32;
 		break;
 	}
 	case cardstates.discarded : {
 		targetx = 42-16;
-		targety = 138-24;
+		targety = 138-32;
 		break;
 	}
 	case cardstates.choosecard : {

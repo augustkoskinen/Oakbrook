@@ -4,7 +4,7 @@ function discardCoin(coin){
 	var len = random_range(1,4)*(irandom_range(0,1)==0?1:-1);
 		
 	coin.x = 31-16+lengthdir_x(len,global.lastdiscardangle);
-	coin.y = 156-24+lengthdir_y(len,global.lastdiscardangle);
+	coin.y = 156-32+lengthdir_y(len,global.lastdiscardangle);
 		
 	global.lastdiscardangle += random_range(30,60)
 }

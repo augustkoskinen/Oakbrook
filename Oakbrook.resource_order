@@ -33,6 +33,7 @@
     {"name":"oSpot","order":10,"path":"objects/oSpot/oSpot.yy",},
     {"name":"oTree","order":9,"path":"objects/oTree/oTree.yy",},
     {"name":"rmOverworld","order":1,"path":"rooms/rmOverworld/rmOverworld.yy",},
+    {"name":"check_selected_type","order":1,"path":"scripts/check_selected_type/check_selected_type.yy",},
     {"name":"discardCard","order":1,"path":"scripts/discardCard/discardCard.yy",},
     {"name":"discardCoin","order":2,"path":"scripts/discardCoin/discardCoin.yy",},
     {"name":"getCardDmgInfo","order":3,"path":"scripts/getCardDmgInfo/getCardDmgInfo.yy",},
@@ -42,6 +43,7 @@
     {"name":"getOptionCost","order":7,"path":"scripts/getOptionCost/getOptionCost.yy",},
     {"name":"getSelected","order":8,"path":"scripts/getSelected/getSelected.yy",},
     {"name":"optionPay","order":9,"path":"scripts/optionPay/optionPay.yy",},
+    {"name":"sCancel","order":7,"path":"sprites/sCancel/sCancel.yy",},
     {"name":"sCardMat","order":1,"path":"sprites/sCardMat/sCardMat.yy",},
     {"name":"sCoin","order":2,"path":"sprites/sCoin/sCoin.yy",},
     {"name":"sEnemy","order":3,"path":"sprites/sEnemy/sEnemy.yy",},
@@ -57,5 +59,6 @@
     {"name":"sSpotType","order":3,"path":"sprites/sSpotType/sSpotType.yy",},
     {"name":"sStone","order":10,"path":"sprites/sStone/sStone.yy",},
     {"name":"sTree","order":4,"path":"sprites/sTree/sTree.yy",},
+    {"name":"sVesselIdol","order":6,"path":"sprites/sVesselIdol/sVesselIdol.yy",},
   ],
 }

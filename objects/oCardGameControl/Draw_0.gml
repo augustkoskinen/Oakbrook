@@ -136,7 +136,7 @@ if(array_length(enemyturnsequence)>0) {
 }
 
 if(!global.chooseenemystate&&!global.enemyturn) {
-	if(point_in_rectangle(mouse_x,mouse_y,51-16-4,105-24-3,51-16+4,105-24+3)) {
+	if(point_in_rectangle(mouse_x,mouse_y,51-16-4,105-32-3,51-16+4,105-32+3)) {
 		//if(global.hoverid == noone) {
 			shader_set(shWhiteOutline)
 			var texelW = texture_get_texel_width(sprite_get_texture(sStone,0))
@@ -156,12 +156,20 @@ if(!global.chooseenemystate&&!global.enemyturn) {
 	draw_set_alpha(0.5);
 }
 
-draw_sprite(sStone,0,51-16,105-24);
+draw_sprite(sStone,0,51-16,105-32);
 draw_set_alpha(1.0);
 shader_reset();
 
-draw_sprite(sHeart,global.playerhealth,24-16,95-24);
+draw_sprite(sHeart,global.playerhealth,24-16,95-32);
 
 if(!anyshaderyes&&global.hoverid == self) {
 	global.hoverid = noone;
+}
+
+for(var i = 0; i < oCardControl.idols; i++) {
+	draw_sprite(sVesselIdol,1,12+i*12,137)
+}
+
+for(var i = 0; i < oCardControl.vessels; i++) {
+	draw_sprite(sVesselIdol,0,12+i*12,137+14)
 }

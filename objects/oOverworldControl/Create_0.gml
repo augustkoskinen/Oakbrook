@@ -29,15 +29,16 @@ for(var curlevel = 2; curlevel < floor(room_height/spacedis)-1; curlevel++) {
 		spot.level = curlevel;
 		
 		var swap = irandom_range(0,5)==0
+		var specialtype = irandom_range(2,7)
 		
 		if((curlevel-1<3||curlevel mod 3 == 0)) {
 			if(swap)
 				spot.type = 1;
 			else
-				spot.type = irandom_range(2,5);
+				spot.type = specialtype;
 		} else {
 			if(swap)
-				spot.type = irandom_range(2,5);
+				spot.type = specialtype;
 			else
 				spot.type = 1;
 		}
@@ -105,6 +106,7 @@ while(ds_list_size(colinst)>0) {
 
 //vars
 choosecards = array_create(0);
+selectcards = array_create(0);
 trashselect = array_create(0);
 startaction = true;
 
