@@ -22,10 +22,10 @@ if(global.overworldaction != -1&&startaction) {
 		case 3: {
 			var space = 18;
 			var rownum = 10;
-			var num = array_length(selectcards);
+			var num = array_length(oCardControl.cards);
 			var middle = display_get_gui_width()/2;
 			for(var i = 0; i < num; i++) {
-				var card = array_get(selectcards,i);
+				var card = array_get(oCardControl.cards,i);
 				card.holdx = middle-2*(num/2-i-0.5)*space;
 				card.holdy = display_get_gui_height()/2;
 			}
@@ -248,12 +248,26 @@ if(global.overworldaction != -1) {
 				break;
 			}
 			case 4: {
-				draw_sprite_ext(sHPUp,0,display_get_gui_width()/2,display_get_gui_height()/2,scale*2,scale*2,0,c_white,1.0);
-				if(global.mousedown) {
-					global.playerhealth = min(oCardControl.playermaxhealth, 2+global.playerhealth);
-					global.overworldaction = -1
-					startaction = true;
+				_x = display_get_gui_width()/2;
+				_y = display_get_gui_height()/2;
+				if(point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),
+					_x-10*scale,_y-10*scale,
+					_x+10*scale,_y+10*scale
+				)) {
+					shader_set(shWhiteOutline)
+					var texelW = texture_get_texel_width(sprite_get_texture(sCancel,0))
+					var texelH = texture_get_texel_height(sprite_get_texture(sCancel,0))
+					shader_set_uniform_f(pixelDims,texelW,texelH)
+					
+					if(global.mousedown) {
+						global.playerhealth = min(oCardControl.playermaxhealth, 2+global.playerhealth);
+						global.overworldaction = -1
+						startaction = true;
+					}
 				}
+				
+				draw_sprite_ext(sHPUp,0,_x,_y,scale*2,scale*2,0,c_white,1.0);
+				shader_reset();
 				break;
 			}
 			case 5: {
@@ -359,13 +373,26 @@ if(global.overworldaction != -1) {
 				break;
 			}
 			case 6: {
-				draw_sprite_ext(sHPUp,1,display_get_gui_width()/2,display_get_gui_height()/2,scale*2,scale*2,0,c_white,1.0);
-				if(global.mousedown) {
-					oCardControl.playermaxhealth++;
-					global.playerhealth++;
-					global.overworldaction = -1
-					startaction = true;
+				_x = display_get_gui_width()/2;
+				_y = display_get_gui_height()/2;
+				if(point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),
+					_x-10*scale,_y-20*scale,
+					_x+10*scale,_y+20*scale
+				)) {
+					shader_set(shWhiteOutline)
+					var texelW = texture_get_texel_width(sprite_get_texture(sCancel,0))
+					var texelH = texture_get_texel_height(sprite_get_texture(sCancel,0))
+					shader_set_uniform_f(pixelDims,texelW,texelH)
+					if(global.mousedown) {
+						oCardControl.playermaxhealth++;
+						global.playerhealth++;
+						global.overworldaction = -1
+						startaction = true;
+					}
 				}
+				
+				draw_sprite_ext(sHPUp,1,_x,_y,scale*2,scale*2,0,c_white,1.0);
+				shader_reset();
 				break;
 			}
 		}
