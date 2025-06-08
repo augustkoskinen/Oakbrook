@@ -15,7 +15,10 @@ else {
 				global.level++;
 				global.camy -= 96;
 				global.curspot = self.id;
-				global.actiontake = type;
+				if(type==0)
+					global.actiontake = 1;
+				else
+					global.actiontake = type;
 			}
 		} else {
 			image_index = 0;
@@ -25,7 +28,8 @@ else {
 	}
 }
 
-draw_sprite(sSpotType,type,x,y);
+if(array_length(spotfrom)>0)
+	draw_sprite(sSpotType,type,x,y);
 
 draw_sprite(sMapSpot,image_index,x,y);
 

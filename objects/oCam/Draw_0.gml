@@ -11,12 +11,12 @@ if(global.immediatecamswitch) {
 		global.camy = CamH/2;
 	} else if (room ==rmOverworld) {
 		camera_set_view_pos(view_camera[0],
-			oGameControl.startx - (CamW / 2),
-			oGameControl.starty-96*global.level - (CamH / 2)
+			oOverworldControl.startx - (CamW / 2),
+			oOverworldControl.starty-96*global.level - (CamH / 2)
 		);
 		
-		global.camx = oGameControl.startx;
-		global.camy = oGameControl.starty-96*global.level;
+		global.camx = oOverworldControl.startx;
+		global.camy = oOverworldControl.starty-96*global.level;
 	}
 	
 	global.immediatecamswitch = false;
@@ -25,8 +25,8 @@ if(global.immediatecamswitch) {
 		global.camx = CamW/2;
 		global.camy = CamH/2;
 	} else if (room ==rmOverworld) {
-		global.camx = oGameControl.startx;
-		global.camy = oGameControl.starty-96*global.level;
+		global.camx = oOverworldControl.startx;
+		global.camy = oOverworldControl.starty-96*global.level;
 	}
 }
 

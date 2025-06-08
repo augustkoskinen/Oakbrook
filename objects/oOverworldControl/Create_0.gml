@@ -1,6 +1,13 @@
 //setup
 spotlist = array_create(0);
 
+
+startx = room_width/2;
+starty = room_height-192; //1920
+
+global.camx = startx;
+global.camy = starty-96;
+
 var spacedis = 96;
 var spotsepdis = 96;
 var treesepdis = 32;
@@ -8,14 +15,16 @@ var treesepdis = 32;
 var endx = 0;
 var endy = 0;
 
-var curx = oGameControl.startx;
-var cury = oGameControl.starty-spacedis;
+var curx = startx;
+var cury = starty-spacedis;
 
 var spot = instance_create_depth(curx,cury+spacedis,0,oSpot);
 spot.level = 1;
 global.curspot = spot;
 
 array_push(spotlist,array_create(1,spot));
+
+global.maxlevel = floor(room_height/spacedis)-2
 
 for(var curlevel = 2; curlevel < floor(room_height/spacedis)-1; curlevel++) {
 	var rep = irandom_range(1,3);
@@ -31,17 +40,20 @@ for(var curlevel = 2; curlevel < floor(room_height/spacedis)-1; curlevel++) {
 		var swap = irandom_range(0,5)==0
 		var specialtype = irandom_range(2,7)
 		
-		if((curlevel-1<3||curlevel mod 3 == 0)) {
-			if(swap)
-				spot.type = 1;
-			else
-				spot.type = specialtype;
-		} else {
-			if(swap)
-				spot.type = specialtype;
-			else
-				spot.type = 1;
-		}
+		if(curlevel==global.maxlevel) {
+			spot.type = 0;
+		} else
+			if((curlevel-1<3||curlevel mod 3 == 0)) {
+				if(swap)
+					spot.type = 1;
+				else
+					spot.type = specialtype;
+			} else {
+				if(swap)
+					spot.type = specialtype;
+				else
+					spot.type = 1;
+			}
 		
 		array_push(curspots,spot);
 	}
@@ -97,7 +109,7 @@ for(var i = 0; i < array_length(spotlist)-1; i++) {
 }
 
 var colinst = ds_list_create();
-collision_rectangle_list(curx-20,0,curx+20,cury+spacedis,oTree,false,true,colinst,false);
+collision_rectangle_list(curx-20,-128,curx+20,cury+spacedis,oTree,false,true,colinst,false);
 while(ds_list_size(colinst)>0) {
 	instance_destroy(colinst[| 0]);
 	ds_list_delete(colinst,0);

@@ -1,5 +1,5 @@
-if(global.startGame) {
-	global.startGame = false;
+if(global.startCardGame) {
+	global.startCardGame = false;
 	//array_copy(deck, 0, oCardControl.cards, 0, array_length(oCardControl.cards));
     deck = array_shuffle(oCardControl.cards);
 	for(var i = 0; i < oCardControl.handmax; i++) {
@@ -113,8 +113,8 @@ if(array_length(enemyturnsequence)>0) {
 			global.playerhealth -= max(dmg,0);
 			
 			if(global.playerhealth<=0) {//LOSE CONDITION ================================
-				//global.won = -1;
-				//moveDiscardToDeck(deck,discard);
+				moveDiscardToDeck(deck,discard);
+				global.won = -1;
 				
 			}
 			attackboosted = false;

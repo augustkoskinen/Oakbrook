@@ -1,3 +1,25 @@
+if(global.startGame) {
+	room_goto(rmOverworld);
+	global.startGame = false;
+} else if(global.restartGame) {
+	room_goto(rmStartScreen);
+	
+	global.startGame = false;
+	global.restartGame = false;
+
+	global.mousedown = false;
+	global.mouserightdown = false;
+
+	global.level = 1;
+	global.maxlevel = 2;
+	global.actiontake = -1;
+	global.won = 0;
+	global.overworldaction = -1;
+
+	global.immediatecamswitch = false;
+	global.hoverid = noone;
+}
+
 if(global.mousedown||global.mouserightdown) {
 	if(room==rmCardMat)
 		resetAllCardsAndCoins();
@@ -20,7 +42,7 @@ if(global.actiontake!=-1) {
 	switch(global.actiontake) {
 		case 1 : { //attack
 			global.hoverid = noone;
-			global.startGame = true;
+			global.startCardGame = true;
 			room_goto(rmCardMat)
 			
 			with(oTree)
@@ -63,19 +85,27 @@ if(global.actiontake!=-1) {
 }
 
 if(global.won!=0) {
-	switch(global.won) {
-		case -1 : {
-			room_goto(rmOverworld)
-			
-			global.immediatecamswitch = true;
-			break;
-		}
-		case 1 : {
-			room_goto(rmOverworld)
-			
-			global.immediatecamswitch = true;
-			break;
-		}
+	var ended = false;
+	if(global.won==-1||(global.won==1&&global.level>=global.maxlevel)) {
+		ended = true;
+		instance_destroy(oCam);
+		instance_destroy(oPath);
+		instance_destroy(oSpot);
+		instance_destroy(oTree);
+		instance_destroy(oOverworldControl);
+		instance_destroy(oCardControl);
+		instance_destroy(oCard);
+		instance_destroy(oCoin);
+		if(global.won==1)
+			room_goto(rmCredits)
+		else
+			room_goto(rmLost)
+		
+		global.immediatecamswitch = true;
+	} else if(global.won==1) {
+		room_goto(rmOverworld)
+		
+		global.immediatecamswitch = true;
 	}
 	
 	with(oTree)
