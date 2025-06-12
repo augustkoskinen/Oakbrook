@@ -1,6 +1,8 @@
 randomize();
 
+global.targetroom = rmStartScreen;
 global.startGame = false;
+global.startTutorial = false;
 global.restartGame = false;
 
 global.mousedown = false;

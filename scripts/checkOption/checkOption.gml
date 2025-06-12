@@ -7,10 +7,10 @@ function checkOption(index, cost, selected){
 	
 	var resourcereqs = (cardhave>=cardneed&&coinhave>=coinneed);
 	
-	var arecardsindeck = (array_length(oCardGameControl.deck)>0||index!=3)
+	var arenocardsindeck = (array_length(oCardGameControl.deck)<=0&&(index==3||index==7))
 	var boost = !(oCardGameControl.attackboosted&&index==6);
 	
-	return arecardsindeck&&boost&&resourcereqs;
+	return !arenocardsindeck&&boost&&resourcereqs;
 }
 
 function performOption(index, card, hand, deck) {
@@ -56,9 +56,13 @@ function performOption(index, card, hand, deck) {
 		}
 		case 7: {
 			drawCard(array_get(deck,0),hand,deck);
+			
+			break;
 		}
 		case 8: {
 			drawCoin(1);
+			
+			break;
 		}
 	}
 	

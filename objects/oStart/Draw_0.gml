@@ -1,3 +1,5 @@
+depth = -100;
+
 draw_sprite_ext(sStart,0,x,y,4,4,0,c_white,1.0);
 
 if(point_in_rectangle(mouse_x,mouse_y,

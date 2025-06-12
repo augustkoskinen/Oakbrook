@@ -1,8 +1,13 @@
 if(global.startGame) {
 	room_goto(rmOverworld);
+	global.targetroom = rmOverworld;
 	global.startGame = false;
+} else if(global.startTutorial) {
+	room_goto(rmCardMat);
+	global.targetroom = rmCardMat;
 } else if(global.restartGame) {
 	room_goto(rmStartScreen);
+	global.targetroom = rmStartScreen;
 	
 	global.startGame = false;
 	global.restartGame = false;
@@ -44,6 +49,7 @@ if(global.actiontake!=-1) {
 			global.hoverid = noone;
 			global.startCardGame = true;
 			room_goto(rmCardMat)
+			global.targetroom = rmCardMat;
 			
 			with(oTree)
 				visible = false;
@@ -96,15 +102,21 @@ if(global.won!=0) {
 		instance_destroy(oCardControl);
 		instance_destroy(oCard);
 		instance_destroy(oCoin);
-		if(global.won==1)
+		if(global.won==1) {
 			room_goto(rmCredits)
-		else
+			global.targetroom = rmCredits;
+		} else {
 			room_goto(rmLost)
+			global.targetroom = rmLost;
+		}
 		
 		global.immediatecamswitch = true;
 	} else if(global.won==1) {
 		room_goto(rmOverworld)
+		oCardGameControl.selectedattack = noone;
+		oCardGameControl.selectedshield = noone;
 		
+		global.targetroom = rmOverworld;
 		global.immediatecamswitch = true;
 	}
 	
@@ -114,6 +126,14 @@ if(global.won!=0) {
 		visible = true;
 	with(oSpot)
 		visible = true;
-		
+	
 	global.won = 0;
+}
+
+depth = 0;
+switch(room) {
+	case rmStartScreen : {
+		draw_sprite_ext(sScreens,0,0,0,4,4,0,c_white,1);
+		break;
+	}
 }

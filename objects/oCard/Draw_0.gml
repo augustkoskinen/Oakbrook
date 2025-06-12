@@ -78,8 +78,8 @@ if(global.won==0) {
 				}
 			}
 		}
-
-		if((global.mouserightdown||oCardGameControl.curoptionselect != self)&&state == cardstates.selectedoption) {
+		
+		if((global.targetroom==room)&&(global.mouserightdown||oCardGameControl.curoptionselect != self)&&state == cardstates.selectedoption) {
 			makeCardAvailable(self)
 		}
 

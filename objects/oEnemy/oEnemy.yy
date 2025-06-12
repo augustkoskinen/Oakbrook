@@ -9,8 +9,8 @@
   "name":"oEnemy",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"Card Game",
+    "path":"folders/Objects/Card Game.yy",
   },
   "parentObjectId":null,
   "persistent":false,
