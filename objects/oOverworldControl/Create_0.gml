@@ -1,7 +1,6 @@
 //setup
 spotlist = array_create(0);
 
-
 startx = room_width/2;
 starty = room_height-192; //1920
 
@@ -10,7 +9,7 @@ global.camy = starty-96;
 
 var spacedis = 96;
 var spotsepdis = 96;
-var treesepdis = 32;
+var treesepdis = 24;
 
 var endx = 0;
 var endy = 0;
@@ -65,11 +64,63 @@ for(var curlevel = 2; curlevel < floor(room_height/spacedis)-1; curlevel++) {
 }
 array_push(spotlist,array_create(1,spot));
 
-//tree spawning
+//environment spawning
 var step = 32;
 for(var _x = 0; _x < room_width; _x+=step) {
 	for(var _y = 0; _y < room_height; _y+=step) {
-		instance_create_depth(_x+random_range(-12,12),_y+random_range(-12,12),0,oTree);
+		var __x = _x+random_range(-12,12)
+		var __y = _y+random_range(-12,12)
+		var tree = instance_create_layer(__x,__y,"Path",oTree);
+		instance_create_layer(__x,__y,"TreeFloor",oTreeFloor);
+		tree.image_index = irandom_range(0,3)==0 ? 1 : 0;
+	}
+}
+
+var numw = 3;
+step = room_width/numw
+for(var _x = 0; _x < room_width; _x+=step) {
+	for(var _y = 0; _y < room_height; _y+=step) {
+		var __x = _x+random_range(-(step/2-16),step/2-16)
+		var __y = _y+random_range(-(step/2-16),step/2-16)
+		var rock = instance_create_layer(__x,__y,"Tree",oRock);
+		rock.image_index = irandom_range(0,1);
+	}
+}
+
+numw = 4;
+step = room_width/numw
+for(var _x = 0; _x < room_width; _x+=step) {
+	for(var _y = 0; _y < room_height; _y+=step) {
+		var __x = _x+random_range(-(step/2-16),step/2-16)
+		var __y = _y+random_range(-(step/2-16),step/2-16)
+		var rock = instance_create_layer(__x,__y,"Tree",oTrunk);
+		rock.image_index = irandom_range(0,1);
+	}
+}
+
+numw = 5;
+step = room_width/numw
+for(var _x = 0; _x < room_width; _x+=step) {
+	for(var _y = 0; _y < room_height; _y+=step) {
+		if(irandom_range(0,3)!=0) {
+			var __x = _x+random_range(-(step/2),step/2)
+			var __y = _y+random_range(-(step/2),step/2)
+			var rock = instance_create_layer(__x,__y,"TreeFloor",oGrass);
+			rock.image_index = irandom_range(0,1);
+		}
+	}
+}
+
+numw = 30;
+step = room_width/numw
+for(var _x = 0; _x < room_width; _x+=step) {
+	for(var _y = 0; _y < room_height; _y+=step) {
+		if(irandom_range(0,3)!=0) {
+			var __x = _x+random_range(-(step/2),step/2)
+			var __y = _y+random_range(-(step/2),step/2)
+			var rock = instance_create_layer(__x,__y,"Tree",oFlora);
+			rock.image_index = irandom_range(0,3);
+		}
 	}
 }
 
@@ -110,6 +161,12 @@ for(var i = 0; i < array_length(spotlist)-1; i++) {
 
 var colinst = ds_list_create();
 collision_rectangle_list(curx-20,-128,curx+20,cury+spacedis,oTree,false,true,colinst,false);
+while(ds_list_size(colinst)>0) {
+	instance_destroy(colinst[| 0]);
+	ds_list_delete(colinst,0);
+}
+
+collision_rectangle_list(curx-20,-128,curx+20,cury+spacedis,oTreeFloor,false,true,colinst,false);
 while(ds_list_size(colinst)>0) {
 	instance_destroy(colinst[| 0]);
 	ds_list_delete(colinst,0);

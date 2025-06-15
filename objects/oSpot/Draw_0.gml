@@ -1,3 +1,5 @@
+depth = -y;
+
 if(global.curspot==self.id)
 	image_index = 0;
 else {
@@ -10,6 +12,7 @@ else {
 	
 	if(cancome&&level==global.level+1) {
 		if(collision_point(mouse_x,mouse_y,self,false,false)&&global.overworldaction==-1) {
+			depth = -y-1000;
 			image_index = 1;
 			if(global.mousedown) {
 				global.level++;
@@ -28,10 +31,10 @@ else {
 	}
 }
 
+draw_sprite(sMapSpot,image_index,x,y);
+
 if(array_length(spotfrom)>0)
 	draw_sprite(sSpotType,type,x,y);
-
-draw_sprite(sMapSpot,image_index,x,y);
 
 if(global.curspot==self.id)
 	draw_sprite(sPlayer,0,x,y);

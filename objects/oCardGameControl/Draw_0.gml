@@ -1,6 +1,5 @@
 if(global.startCardGame) {
 	global.startCardGame = false;
-	//array_copy(deck, 0, oCardControl.cards, 0, array_length(oCardControl.cards));
     deck = array_shuffle(oCardControl.cards);
 	for(var i = 0; i < oCardControl.handmax; i++) {
 		drawCard(array_get(deck,0), hand, deck);
@@ -42,31 +41,37 @@ if(curoptionselect!=noone) {
 	var originx = curoptionselect.x+20;
 	var originy = curoptionselect.y-4;
 	var options = getCardOptions(curoptionselect.index,curoptionselect.type);
-	for(var i = 0; i < array_length(options); i++) {
+	
+	var col = false;
+	var cost = noone;
+	
+	for(var i = array_length(options)-1; i >= 0; i--) {
 		if(!global.chooseenemystate&&!global.enemyturn) {
-			var cost = getOptionCost(array_get(options,i));
+			cost = getOptionCost(array_get(options,i));
 			var selected = getSelected(oCard, oCoin);
 			var check = checkOption(array_get(options,i), cost, selected);
 			
-			var col = point_in_rectangle(mouse_x,mouse_y,originx,originy+i*10,originx+30,originy+i*10+9);
+			col = point_in_rectangle(mouse_x,mouse_y,originx,originy+i*10,originx+30,originy+i*10+9);
 			
-			if(check) {
-				if(col) {//&&global.hoverid == noone
-					if(global.mousedown) {
-						performOption(array_get(options,i), curoptionselect, hand, deck);
+			if(col) {//&&global.hoverid == noone
+				if(check) {
+						if(global.mousedown) {
+							performOption(array_get(options,i), curoptionselect, hand, deck);
 						
-						global.mousedown = false;
-					}
+							global.mousedown = false;
+						}
 			
-					shader_set(shWhiteOutline)
-					var texelW = texture_get_texel_width(sprite_get_texture(sOption,array_get(options,i)))
-					var texelH = texture_get_texel_height(sprite_get_texture(sOption,array_get(options,i)))
-					shader_set_uniform_f(pixelDims,texelW,texelH)
+						shader_set(shWhiteOutline)
+						var texelW = texture_get_texel_width(sprite_get_texture(sOption,array_get(options,i)))
+						var texelH = texture_get_texel_height(sprite_get_texture(sOption,array_get(options,i)))
+						shader_set_uniform_f(pixelDims,texelW,texelH)
 				
-					global.hoverid = self;
-					anyshaderyes = true;
+						global.hoverid = self;
+						anyshaderyes = true;
+				} else {
+					draw_set_alpha(0.5);
 				}
-			} else {
+			} else if(!check) {
 				draw_set_alpha(0.5);
 			}
 		} else {
@@ -77,6 +82,31 @@ if(curoptionselect!=noone) {
 		
 		draw_set_alpha(1.0);
 		shader_reset();
+		
+		if(col) {
+			shader_set(shWhiteOutline)
+			var texelW = texture_get_texel_width(sprite_get_texture(sOption,array_get(options,i)))
+			var texelH = texture_get_texel_height(sprite_get_texture(sOption,array_get(options,i)))
+			shader_set_uniform_f(pixelDims,texelW,texelH)
+			
+			if(originx<=112) {
+				if(cost[0]==0&&cost[1]!=0) {
+					draw_sprite(sCoinCost,cost[1],originx+29,originy+i*10+1);
+				} else {
+					draw_sprite(sCardCost,cost[0],originx+29,originy+i*10+1);
+					draw_sprite(sCoinCost,cost[1],originx+40,originy+i*10+1);
+				}
+			} else {
+				if(cost[0]==0&&cost[1]!=0) {
+					draw_sprite(sCoinCost,cost[1],originx-13,originy+i*10+1);
+				} else {
+					draw_sprite(sCardCost,cost[0],originx-13,originy+i*10+1);
+					draw_sprite(sCoinCost,cost[1],originx-25,originy+i*10+1);
+				}
+			}
+			
+			shader_reset();
+		}
 	}
 }
 
@@ -87,9 +117,8 @@ if(array_length(enemyturnsequence)>0) {
 	if(enemycounter<=0) {
 		array_delete(enemyturnsequence,0,1);
 		if(array_length(enemyturnsequence)==2) {
-			var dmg = array_get(enemyarray, 0).dmg+1*(attackboosted == true);
+			var dmg = array_get(enemyarray, 0).dmg;
 			
-			//show_debug_message(selectedshield)
 			if(selectedshield!=noone) {
 				dmg -= getCardDmgInfo(selectedshield.index)[0];
 				

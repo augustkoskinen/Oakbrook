@@ -1,9 +1,7 @@
 {
   "$GMObject":"",
   "%Name":"oTree",
-  "eventList":[
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-  ],
+  "eventList":[],
   "managed":true,
   "name":"oTree",
   "overriddenProperties":[],
@@ -11,7 +9,10 @@
     "name":"Overworld",
     "path":"folders/Objects/Overworld.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"oEnvironmentPar",
+    "path":"objects/oEnvironmentPar/oEnvironmentPar.yy",
+  },
   "persistent":true,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,

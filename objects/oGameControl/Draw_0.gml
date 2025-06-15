@@ -1,3 +1,5 @@
+
+
 if(global.startGame) {
 	room_goto(rmOverworld);
 	global.targetroom = rmOverworld;
@@ -50,14 +52,9 @@ if(global.actiontake!=-1) {
 			global.startCardGame = true;
 			room_goto(rmCardMat)
 			global.targetroom = rmCardMat;
+			with(oEnvironmentPar)
+				visible = false;
 			
-			with(oTree)
-				visible = false;
-			with(oPath)
-				visible = false;
-			with(oSpot)
-				visible = false;
-
 			global.immediatecamswitch = true;
 			break;
 		}
@@ -97,7 +94,7 @@ if(global.won!=0) {
 		instance_destroy(oCam);
 		instance_destroy(oPath);
 		instance_destroy(oSpot);
-		instance_destroy(oTree);
+		instance_destroy(oEnvironmentPar);
 		instance_destroy(oOverworldControl);
 		instance_destroy(oCardControl);
 		instance_destroy(oCard);
@@ -112,19 +109,15 @@ if(global.won!=0) {
 		
 		global.immediatecamswitch = true;
 	} else if(global.won==1) {
-		room_goto(rmOverworld)
 		oCardGameControl.selectedattack = noone;
 		oCardGameControl.selectedshield = noone;
+		room_goto(rmOverworld)
 		
 		global.targetroom = rmOverworld;
 		global.immediatecamswitch = true;
 	}
 	
-	with(oTree)
-		visible = true;
-	with(oPath)
-		visible = true;
-	with(oSpot)
+	with(oEnvironmentPar)
 		visible = true;
 	
 	global.won = 0;
@@ -133,7 +126,17 @@ if(global.won!=0) {
 depth = 0;
 switch(room) {
 	case rmStartScreen : {
-		draw_sprite_ext(sScreens,0,0,0,4,4,0,c_white,1);
+		draw_sprite_ext(sScreenStart,floor(screentime),0,0,4,4,0,c_white,1);
+		break;
+	}
+	case rmLost : {
+		draw_sprite_ext(sScreenDied,0,0,0,4,4,0,c_white,1);
+		break;
+	}
+	case rmCredits : {
+		draw_sprite_ext(sScreenCredit,floor(screentime),0,0,4,4,0,c_white,1);
 		break;
 	}
 }
+
+screentime += delta_time/1000000;

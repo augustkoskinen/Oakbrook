@@ -3,7 +3,7 @@ if(global.overworldaction != -1&&startaction) {
 		case 1: {
 			for(var i = 0; i < 3; i++) {
 				var card = instance_create_layer(0,0,"Cards",oCard);
-				card.index = max(ceil(global.level/2)+irandom_range(1,-1),1);
+				card.index = max(ceil(global.level/3)-1+irandom_range(1,-1),1);
 				card.type = irandom_range(0,3);
 				array_push(choosecards,card)
 			}
@@ -32,7 +32,7 @@ if(global.overworldaction != -1&&startaction) {
 			
 			for(var i = 0; i < 3; i++) {
 				var card = instance_create_layer(0,0,"Cards",oCard);
-				card.index = max(ceil(global.level/2)+2+irandom_range(1,-1),1);
+				card.index = max(ceil(global.level/3)+irandom_range(1,-1),1);
 				card.type = irandom_range(0,3);
 				array_push(choosecards,card)
 			}

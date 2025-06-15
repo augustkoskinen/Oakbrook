@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"spawnPine",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"spawnPine",
+  "parent":{
+    "name":"Map",
+    "path":"folders/Scripts/Map.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

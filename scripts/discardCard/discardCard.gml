@@ -4,7 +4,7 @@ function discardAll(doDamage) {
 	
 	if(doDamage&&oCardGameControl.selectedattack!=noone) {
 		var dmginfo = getCardDmgInfo(oCardGameControl.selectedattack.index);
-		array_get(oCardGameControl.enemyarray, 0).curhp -= dmginfo[0];
+		array_get(oCardGameControl.enemyarray, 0).curhp -= dmginfo[0]+1*(attackboosted);
 		if((array_get(oCardGameControl.enemyarray, 0).hptype==0&&oCardGameControl.selectedattack.type==1)||
 			(array_get(oCardGameControl.enemyarray, 0).hptype==1&&oCardGameControl.selectedattack.type==2)||
 			(array_get(oCardGameControl.enemyarray, 0).hptype==2&&oCardGameControl.selectedattack.type==3)||
@@ -35,7 +35,12 @@ function discardAll(doDamage) {
 	
 	if(array_get(oCardGameControl.enemyarray, 0).curhp<=0) {
 		global.won = 1;
-			
+		
+		if(oCardGameControl.selectedshield!=noone) {
+			discardCard(oCardGameControl.selectedshield,oCardGameControl.selectedshield,discard);
+			oCardGameControl.selectedshield = noone;
+		}
+		
 		moveDiscardToDeck(oCardGameControl.deck,oCardGameControl.discard);
 	}
 }

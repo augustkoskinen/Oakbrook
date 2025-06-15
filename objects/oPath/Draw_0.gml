@@ -1,5 +1,4 @@
 if(sourcex!=-1) {
-	depth = -y
 	checked = true;
 	
 	var dist = point_distance(sourcex,sourcey,targetx,targety);
@@ -12,6 +11,7 @@ if(sourcex!=-1) {
 	
 	var step = 5;
 	
+	//depth = -cury+15;
 	for(var i = seperation; i < dist-seperation; i+=step) {
 		draw_sprite_ext(sPath,0,curx,cury,1,1,dir,c_white,1.0);
 		
