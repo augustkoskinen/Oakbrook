@@ -65,7 +65,8 @@ for(var curlevel = 2; curlevel < floor(room_height/spacedis)-1; curlevel++) {
 array_push(spotlist,array_create(1,spot));
 
 //environment spawning
-var step = 32;
+var numw = 18;
+var step = room_width/numw
 for(var _x = 0; _x < room_width; _x+=step) {
 	for(var _y = 0; _y < room_height; _y+=step) {
 		var __x = _x+random_range(-12,12)
@@ -76,7 +77,7 @@ for(var _x = 0; _x < room_width; _x+=step) {
 	}
 }
 
-var numw = 3;
+numw = 3;
 step = room_width/numw
 for(var _x = 0; _x < room_width; _x+=step) {
 	for(var _y = 0; _y < room_height; _y+=step) {

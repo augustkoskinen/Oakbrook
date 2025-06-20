@@ -1,12 +1,16 @@
-
-
 if(global.startGame) {
 	room_goto(rmOverworld);
 	global.targetroom = rmOverworld;
 	global.startGame = false;
 } else if(global.startTutorial) {
-	room_goto(rmCardMat);
-	global.targetroom = rmCardMat;
+	global.hoverid = noone;
+	global.startCardGame = true;
+	room_goto(rmTutorial);
+	
+	global.targetroom = rmTutorial;
+	global.immediatecamswitch = true;
+	global.startTutorial = false;
+	
 } else if(global.restartGame) {
 	room_goto(rmStartScreen);
 	global.targetroom = rmStartScreen;
@@ -28,7 +32,7 @@ if(global.startGame) {
 }
 
 if(global.mousedown||global.mouserightdown) {
-	if(room==rmCardMat)
+	if(room==rmCardMat||room==rmTutorial)
 		resetAllCardsAndCoins();
 }
 
@@ -53,6 +57,12 @@ if(global.actiontake!=-1) {
 			room_goto(rmCardMat)
 			global.targetroom = rmCardMat;
 			with(oEnvironmentPar)
+				visible = false;
+			
+			with(oSpot)
+				visible = false;
+				
+			with(oPath)
 				visible = false;
 			
 			global.immediatecamswitch = true;
@@ -109,15 +119,30 @@ if(global.won!=0) {
 		
 		global.immediatecamswitch = true;
 	} else if(global.won==1) {
-		oCardGameControl.selectedattack = noone;
-		oCardGameControl.selectedshield = noone;
-		room_goto(rmOverworld)
+		if(room == rmTutorial) {
+			room_goto(rmStartScreen)
+			instance_destroy(oCam);
+			instance_destroy(oCardControl);
 		
-		global.targetroom = rmOverworld;
-		global.immediatecamswitch = true;
+			global.targetroom = rmStartScreen;
+			global.immediatecamswitch = true;
+		} else {
+			oCardGameControl.selectedattack = noone;
+			oCardGameControl.selectedshield = noone;
+			room_goto(rmOverworld)
+			
+			global.targetroom = rmOverworld;
+			global.immediatecamswitch = true;
+		}
 	}
 	
 	with(oEnvironmentPar)
+		visible = true;
+		
+	with(oSpot)
+		visible = true;
+	
+	with(oPath)
 		visible = true;
 	
 	global.won = 0;

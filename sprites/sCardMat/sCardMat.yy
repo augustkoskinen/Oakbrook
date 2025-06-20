@@ -21,6 +21,7 @@
   "HTile":false,
   "layers":[
     {"$GMImageLayer":"","%Name":"a018d3a4-48f0-41ad-8216-f99ca1c218a3","blendMode":0,"displayName":"default","isLocked":false,"name":"a018d3a4-48f0-41ad-8216-f99ca1c218a3","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
+    {"$GMImageLayer":"","%Name":"417f5820-fd01-40cf-9b22-65f25a575814","blendMode":0,"displayName":"Layer 1","isLocked":false,"name":"417f5820-fd01-40cf-9b22-65f25a575814","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
   ],
   "name":"sCardMat",
   "nineSlice":null,

@@ -44,7 +44,7 @@ if(global.won==0) {
 		if(!global.chooseenemystate&&!global.enemyturn) {
 			x = targetx+adjustposx;
 			y = targety+adjustposy;
-			if(collision_point(mouse_x,mouse_y,self,false,false)) {
+			if(collision_point(mouse_x,mouse_y,self,false,false)&&global.canTakeAction&&global.canTakeAction&&!global.paused) {
 				if(global.hoverid == noone) {
 					global.hoverid = self;
 				}

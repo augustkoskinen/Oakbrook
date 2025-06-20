@@ -4,7 +4,7 @@ function discardAll(doDamage) {
 	
 	if(doDamage&&oCardGameControl.selectedattack!=noone) {
 		var dmginfo = getCardDmgInfo(oCardGameControl.selectedattack.index);
-		array_get(oCardGameControl.enemyarray, 0).curhp -= dmginfo[0]+1*(attackboosted);
+		array_get(oCardGameControl.enemyarray, 0).curhp -= dmginfo[0]+1*(oCardGameControl.attackboosted);
 		if((array_get(oCardGameControl.enemyarray, 0).hptype==0&&oCardGameControl.selectedattack.type==1)||
 			(array_get(oCardGameControl.enemyarray, 0).hptype==1&&oCardGameControl.selectedattack.type==2)||
 			(array_get(oCardGameControl.enemyarray, 0).hptype==2&&oCardGameControl.selectedattack.type==3)||

@@ -3,7 +3,7 @@ if(state == coinstates.available||state == coinstates.selected) {
 	if(!global.chooseenemystate&&!global.enemyturn) {
 		x+=adjustposx;
 		y+=adjustposy;
-		if(collision_point(mouse_x,mouse_y,self,true,false)) {
+		if(collision_point(mouse_x,mouse_y,self,true,false)&&global.canTakeAction&&!global.paused) {
 			if(global.hoverid == noone) {
 				global.hoverid = self;
 			}

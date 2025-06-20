@@ -75,7 +75,7 @@ if(global.overworldaction != -1) {
 	if(point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),
 		_x-8*scale,_y-8*scale,
 		_x+8*scale,_y+8*scale
-	)) {
+	)&&!global.paused) {
 		shader_set(shWhiteOutline)
 		var texelW = texture_get_texel_width(sprite_get_texture(sCancel,0))
 		var texelH = texture_get_texel_height(sprite_get_texture(sCancel,0))
@@ -95,10 +95,10 @@ if(global.overworldaction != -1) {
 		switch(global.overworldaction) {
 			case 1: {
 				for(var i = 0; i < array_length(choosecards); i++) {
-					if(point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),
+					if((point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),
 						display_get_gui_width()/2+128*(1-i)-9*scale,display_get_gui_height()/2-14*scale,
 						display_get_gui_width()/2+128*(1-i)+9*scale,display_get_gui_height()/2+14*scale)
-					) {
+					)&&!global.paused) {
 						shader_set(shWhiteOutline)
 						var texelW = texture_get_texel_width(sprite_get_texture(sCard,array_get(choosecards,i).index))
 						var texelH = texture_get_texel_height(sprite_get_texture(sCard,array_get(choosecards,i).index))
@@ -130,10 +130,10 @@ if(global.overworldaction != -1) {
 			}
 			case 2: {
 				for(var i = 0; i < array_length(choosecards); i++) {
-					if(point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),
+					if((point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),
 						display_get_gui_width()/2-64+128*i-9*scale,display_get_gui_height()/2-14*scale,
 						display_get_gui_width()/2-64+128*i+9*scale,display_get_gui_height()/2+14*scale)
-					) {
+					)&&!global.paused) {
 						shader_set(shWhiteOutline)
 						var texelW = texture_get_texel_width(sprite_get_texture(sCard,array_get(choosecards,i).index))
 						var texelH = texture_get_texel_height(sprite_get_texture(sCard,array_get(choosecards,i).index))
@@ -166,10 +166,10 @@ if(global.overworldaction != -1) {
 					var canchoose = array_length(trashselect)==2;
 					var alpha = 1.0;
 				
-					if(point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),
+					if((point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),
 						display_get_gui_width()/2+128*(1-i)-9*scale,display_get_gui_height()/2-128-14*scale,
 						display_get_gui_width()/2+128*(1-i)+9*scale,display_get_gui_height()/2-128+14*scale)
-					&&canchoose) {
+					&&canchoose)&&!global.paused) {
 						shader_set(shWhiteOutline)
 						var texelW = texture_get_texel_width(sprite_get_texture(sCard,array_get(choosecards,i).index))
 						var texelH = texture_get_texel_height(sprite_get_texture(sCard,array_get(choosecards,i).index))
@@ -201,10 +201,10 @@ if(global.overworldaction != -1) {
 				var hoverid = noone;
 				for(var i = array_length(oCardControl.cards) - 1; i >= 0; i--) {
 					var card = array_get(oCardControl.cards,i);
-					if(point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),
+					if((point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),
 						card.holdx-9*scale, card.holdy-14*scale,
 						card.holdx+9*scale, card.holdy+14*scale
-					)) {
+					)&&!global.paused)) {
 						hoverid = card.id
 					}
 				}
@@ -253,7 +253,7 @@ if(global.overworldaction != -1) {
 				if(point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),
 					_x-10*scale,_y-10*scale,
 					_x+10*scale,_y+10*scale
-				)) {
+				)&&!global.paused) {
 					shader_set(shWhiteOutline)
 					var texelW = texture_get_texel_width(sprite_get_texture(sCancel,0))
 					var texelH = texture_get_texel_height(sprite_get_texture(sCancel,0))
@@ -285,7 +285,7 @@ if(global.overworldaction != -1) {
 					if(point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),
 						_x-scale*6,_y-scale*8,
 						_x+scale*6,_y+scale*8)
-					&&canchoose) {
+					&&canchoose&&!global.paused) {
 						shader_set(shWhiteOutline)
 						var texelW = texture_get_texel_width(sprite_get_texture(sVesselIdol,i))
 						var texelH = texture_get_texel_height(sprite_get_texture(sVesselIdol,i))
@@ -324,7 +324,7 @@ if(global.overworldaction != -1) {
 					if(point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),
 						card.holdx-9*scale, card.holdy-14*scale,
 						card.holdx+9*scale, card.holdy+14*scale
-					)) {
+					)&&!global.paused) {
 						hoverid = card.id
 					}
 				}
@@ -378,7 +378,7 @@ if(global.overworldaction != -1) {
 				if(point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),
 					_x-10*scale,_y-20*scale,
 					_x+10*scale,_y+20*scale
-				)) {
+				)&&!global.paused) {
 					shader_set(shWhiteOutline)
 					var texelW = texture_get_texel_width(sprite_get_texture(sCancel,0))
 					var texelH = texture_get_texel_height(sprite_get_texture(sCancel,0))

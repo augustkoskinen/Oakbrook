@@ -11,7 +11,7 @@ else {
 	}
 	
 	if(cancome&&level==global.level+1) {
-		if(collision_point(mouse_x,mouse_y,self,false,false)&&global.overworldaction==-1) {
+		if(collision_point(mouse_x,mouse_y,self,false,false)&&global.overworldaction==-1&&!global.paused) {
 			depth = -y-1000;
 			image_index = 1;
 			if(global.mousedown) {
