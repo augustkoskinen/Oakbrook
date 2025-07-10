@@ -40,23 +40,47 @@ if(global.won==0) {
 	if(state == cardstates.available||
 		state == cardstates.selected||
 		state == cardstates.selectedoption) {
-	
-		if(!global.chooseenemystate&&!global.enemyturn) {
-			x = targetx+adjustposx;
-			y = targety+adjustposy;
-			if(collision_point(mouse_x,mouse_y,self,false,false)&&global.canTakeAction&&global.canTakeAction&&!global.paused) {
-				if(global.hoverid == noone) {
-					global.hoverid = self;
+		if(room==rmTutorial) {
+			if((array_length(global.achievements)==7&&type!=2)) {
+				draw_set_alpha(0.5);
+			} else if((array_length(global.achievements)==8&&type!=0)) {
+				draw_set_alpha(0.5);
+			} else if((array_length(global.achievements)==10&&type!=1)) {
+				draw_set_alpha(0.5);
+			} else if((array_length(global.achievements)==14&&type!=1)) {
+				draw_set_alpha(0.5);
+			} else if(!global.chooseenemystate&&!global.enemyturn) {
+				x = targetx+adjustposx;
+				y = targety+adjustposy;
+				if(collision_point(mouse_x,mouse_y,self,false,false)&&global.canTakeAction&&global.canTakeAction&&!global.paused) {
+					if(global.hoverid == noone) {
+						global.hoverid = self;
+					}
+				} else if(global.hoverid == self) {
+					global.hoverid = noone;
 				}
-			} else if(global.hoverid == self) {
-				global.hoverid = noone;
+			} else {
+				draw_set_alpha(0.5);
 			}
+			
 		} else {
-			draw_set_alpha(0.5);
+			if(!global.chooseenemystate&&!global.enemyturn) {
+				x = targetx+adjustposx;
+				y = targety+adjustposy;
+				if(collision_point(mouse_x,mouse_y,self,false,false)&&global.canTakeAction&&global.canTakeAction&&!global.paused) {
+					if(global.hoverid == noone) {
+						global.hoverid = self;
+					}
+				} else if(global.hoverid == self) {
+					global.hoverid = noone;
+				}
+			} else {
+				draw_set_alpha(0.5);
+			}
 		}
 
 		if(global.hoverid==self) {
-			if(global.mousedown) {
+			if(global.mousedown&&!global.paused) {
 				if(state == cardstates.selected) {
 					makeCardAvailable(self)
 				} else if(state == cardstates.selectedoption) {
@@ -68,7 +92,7 @@ if(global.won==0) {
 				global.mousedown = false;
 			}
 	
-			if(global.mouserightdown) {
+			if(global.mouserightdown&&!global.paused) {
 				if(state == cardstates.selectedoption) {
 					makeCardAvailable(self)
 					oCardGameControl.curoptionselect = noone;
@@ -79,7 +103,7 @@ if(global.won==0) {
 			}
 		}
 		
-		if((global.targetroom==room)&&(global.mouserightdown||oCardGameControl.curoptionselect != self)&&state == cardstates.selectedoption) {
+		if((global.targetroom==room)&&(global.mouserightdown||oCardGameControl.curoptionselect != self)&&state == cardstates.selectedoption&&!global.paused) {
 			makeCardAvailable(self)
 		}
 
@@ -101,7 +125,7 @@ if(global.won==0) {
 		if(!global.chooseenemystate&&!global.enemyturn) {
 			x = targetx;
 			y = targety;
-			if(collision_point(mouse_x,mouse_y,self,false,false)) {
+			if(collision_point(mouse_x,mouse_y,self,false,false)&&array_length(global.achievements)==13) {
 				if(global.hoverid == noone) {
 					global.hoverid = self;
 				}
@@ -119,6 +143,7 @@ if(global.won==0) {
 			shader_set_uniform_f(pixelDims,texelW,texelH)
 		
 			if(global.mousedown) {
+				oCardGameControlTutorial.redrewcards = true;
 				discardAll(true)
 				moveDiscardToDeck(oCardGameControl.deck,oCardGameControl.discard)
 				global.hoverid = noone;
@@ -137,6 +162,9 @@ if(global.won==0) {
 		shader_reset();
 		draw_set_alpha(1.0);
 	}	else if (state==cardstates.selectedattack||state==cardstates.selectedshield){
+		x = 0;
+		y = 0;
+		
 		if(global.chooseenemystate) {
 			draw_set_alpha(0.5);
 		}
@@ -147,7 +175,8 @@ if(global.won==0) {
 	
 		draw_set_alpha(1.0);
 	}  else if(state==cardstates.indeck){
-	
+		x = 0;
+		y = 0;
 	}
 
 	if(state == cardstates.selected||state == cardstates.selectedoption) {

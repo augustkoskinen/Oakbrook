@@ -7,6 +7,10 @@ discard = array_create(0);
 
 coins = array_create(0);
 
+canwingame = false;
+redrewcards = false;
+performedaction = -1;
+actionpause = false;
 global.chooseenemystate = false;
 global.enemyturn = false;
 curoptionselect = noone;
@@ -37,11 +41,11 @@ if(room!=rmTutorial) {
 	enemy.dmgtype = enemystats[3];
 } else {
 	enemy.type = 1;
-	enemy.hp = 3;
-	enemy.curhp = 3;
-	enemy.hptype = 1;
-	enemy.dmg = 1;
-	enemy.dmgtype = 0;
+	enemy.hp = 4;
+	enemy.curhp = 4;
+	enemy.hptype = 0;
+	enemy.dmg = 2;
+	enemy.dmgtype = 1;
 }
 
 array_push(enemyarray, enemy)

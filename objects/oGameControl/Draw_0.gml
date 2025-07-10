@@ -1,10 +1,30 @@
 if(global.startGame) {
-	room_goto(rmOverworld);
-	global.targetroom = rmOverworld;
-	global.startGame = false;
+	if(global.loadGame) {
+		loadGame();
+		
+		global.targetroom = rmOverworld;
+		global.startGame = false;
+		global.playopen = false;
+		global.settingsopen = false;
+	} else {
+		room_goto(rmOverworld);
+		randomize();
+		global.seed = irandom_range(0,1000000);
+		random_set_seed(global.seed);
+	
+		global.targetroom = rmOverworld;
+		global.startGame = false;
+		global.playopen = false;
+		global.settingsopen = false;
+		global.loadGame = false;
+		global.curspot = 1;
+		global.prevspot = 0;
+	}
 } else if(global.startTutorial) {
 	global.hoverid = noone;
 	global.startCardGame = true;
+	global.playopen = false;
+	global.settingsopen = false;
 	room_goto(rmTutorial);
 	
 	global.targetroom = rmTutorial;
@@ -12,6 +32,9 @@ if(global.startGame) {
 	global.startTutorial = false;
 	
 } else if(global.restartGame) {
+	if(room==rmCredits||room==rmLost)
+		deleteSavedGame();
+	
 	room_goto(rmStartScreen);
 	global.targetroom = rmStartScreen;
 	
@@ -31,7 +54,7 @@ if(global.startGame) {
 	global.hoverid = noone;
 }
 
-if(global.mousedown||global.mouserightdown) {
+if((global.mousedown||global.mouserightdown)&&!global.paused) {
 	if(room==rmCardMat||room==rmTutorial)
 		resetAllCardsAndCoins();
 }
@@ -120,13 +143,17 @@ if(global.won!=0) {
 		global.immediatecamswitch = true;
 	} else if(global.won==1) {
 		if(room == rmTutorial) {
-			room_goto(rmStartScreen)
-			instance_destroy(oCam);
-			instance_destroy(oCardControl);
+			if(oCardGameControlTutorial.canwingame) {
+				ended = true;
+				room_goto(rmStartScreen)
+				instance_destroy(oCam);
+				instance_destroy(oCardControl);
 		
-			global.targetroom = rmStartScreen;
-			global.immediatecamswitch = true;
+				global.targetroom = rmStartScreen;
+				global.immediatecamswitch = true;
+			}
 		} else {
+			ended = true;
 			oCardGameControl.selectedattack = noone;
 			oCardGameControl.selectedshield = noone;
 			room_goto(rmOverworld)
@@ -136,16 +163,18 @@ if(global.won!=0) {
 		}
 	}
 	
-	with(oEnvironmentPar)
-		visible = true;
+	if(ended) {
+		with(oEnvironmentPar)
+			visible = true;
 		
-	with(oSpot)
-		visible = true;
+		with(oSpot)
+			visible = true;
 	
-	with(oPath)
-		visible = true;
+		with(oPath)
+			visible = true;
 	
-	global.won = 0;
+		global.won = 0;
+	}
 }
 
 depth = 0;

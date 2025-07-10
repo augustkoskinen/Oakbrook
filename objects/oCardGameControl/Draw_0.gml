@@ -1,11 +1,11 @@
 if(global.startCardGame) {
 	global.startCardGame = false;
-    deck = array_shuffle(oCardControl.cards);
-	for(var i = 0; i < oCardControl.handmax; i++) {
+    deck = array_shuffle(global.cards);
+	for(var i = 0; i < global.handmax; i++) {
 		drawCard(array_get(deck,0), hand, deck);
 	}
 	
-	drawCoin(oCardControl.coinmax);
+	drawCoin(global.coinmax);
 }
 depth = global.depthcount-100;
 
@@ -51,9 +51,10 @@ if(curoptionselect!=noone) {
 			
 			col = point_in_rectangle(mouse_x,mouse_y,originx,originy+i*10,originx+30,originy+i*10+9);
 			
-			if(global.canTakeAction&&!global.paused) {
+			if(global.canTakeAction) {
 				if(col) {//&&global.hoverid == noone
 					if(check) {
+						if(!global.paused) {
 							if(global.mousedown) {
 								performOption(array_get(options,i), curoptionselect, hand, deck);
 						
@@ -67,6 +68,7 @@ if(curoptionselect!=noone) {
 				
 							global.hoverid = self;
 							anyshaderyes = true;
+						}
 					} else {
 						draw_set_alpha(0.5);
 					}
@@ -89,19 +91,21 @@ if(curoptionselect!=noone) {
 			var texelH = texture_get_texel_height(sprite_get_texture(sOption,array_get(options,i)))
 			shader_set_uniform_f(pixelDims,texelW,texelH)
 			
-			if(originx<=112) {
-				if(cost[0]==0&&cost[1]!=0) {
-					draw_sprite(sCoinCost,cost[1],originx+29,originy+i*10+1);
+			if(!global.paused) {
+				if(originx<=112) {
+					if(cost[0]==0&&cost[1]!=0) {
+						draw_sprite(sCoinCost,cost[1],originx+29,originy+i*10+1);
+					} else {
+						draw_sprite(sCardCost,cost[0],originx+29,originy+i*10+1);
+						draw_sprite(sCoinCost,cost[1],originx+40,originy+i*10+1);
+					}
 				} else {
-					draw_sprite(sCardCost,cost[0],originx+29,originy+i*10+1);
-					draw_sprite(sCoinCost,cost[1],originx+40,originy+i*10+1);
-				}
-			} else {
-				if(cost[0]==0&&cost[1]!=0) {
-					draw_sprite(sCoinCost,cost[1],originx-13,originy+i*10+1);
-				} else {
-					draw_sprite(sCardCost,cost[0],originx-13,originy+i*10+1);
-					draw_sprite(sCoinCost,cost[1],originx-25,originy+i*10+1);
+					if(cost[0]==0&&cost[1]!=0) {
+						draw_sprite(sCoinCost,cost[1],originx-13,originy+i*10+1);
+					} else {
+						draw_sprite(sCardCost,cost[0],originx-13,originy+i*10+1);
+						draw_sprite(sCoinCost,cost[1],originx-25,originy+i*10+1);
+					}
 				}
 			}
 			
@@ -148,12 +152,12 @@ if(array_length(enemyturnsequence)>0) {
 			}
 			attackboosted = false;
 		} else if(array_length(enemyturnsequence)==1) {
-			for(var i = 0; i < oCardControl.handmax; i++) {
+			for(var i = 0; i < global.handmax; i++) {
 				if(array_length(deck)>0)
 					drawCard(array_get(deck,0), hand, deck);
 			}
 			
-			resetCoins(oCardControl.coinmax);
+			resetCoins(global.coinmax);
 		}
 		
 		if(array_length(enemyturnsequence)>0) {
@@ -195,10 +199,10 @@ if(!anyshaderyes&&global.hoverid == self) {
 	global.hoverid = noone;
 }
 
-for(var i = 0; i < oCardControl.idols; i++) {
+for(var i = 0; i < global.idols; i++) {
 	draw_sprite(sVesselIdol,1,12+i*12,137)
 }
 
-for(var i = 0; i < oCardControl.vessels; i++) {
+for(var i = 0; i < global.vessels; i++) {
 	draw_sprite(sVesselIdol,0,12+i*12,137+14)
 }

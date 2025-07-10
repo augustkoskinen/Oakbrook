@@ -31,8 +31,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"sStart",
-    "path":"sprites/sStart/sStart.yy",
+    "name":"sButtons",
+    "path":"sprites/sButtons/sButtons.yy",
   },
   "spriteMaskId":null,
   "visible":true,

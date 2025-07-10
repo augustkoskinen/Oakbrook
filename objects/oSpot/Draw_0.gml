@@ -1,12 +1,12 @@
 depth = -y;
 
-if(global.curspot==self.id)
+if(global.curspot==spotid) {
 	image_index = 0;
-else {
+	global.curspotid = self.id;
+} else {
 	var cancome = false;
-	
 	for(var i = 0; i < array_length(spotfrom); i++) {
-		if(array_get(spotfrom,i)==global.curspot)
+		if(array_get(spotfrom,i).spotid==global.curspot)
 			cancome = true;
 	}
 	
@@ -17,7 +17,9 @@ else {
 			if(global.mousedown) {
 				global.level++;
 				global.camy -= 96;
-				global.curspot = self.id;
+				global.prevspot = global.curspot;
+				global.curspot = spotid;
+				global.curspotid = self.id;
 				if(type==0)
 					global.actiontake = 1;
 				else
@@ -36,5 +38,5 @@ draw_sprite(sMapSpot,image_index,x,y);
 if(array_length(spotfrom)>0)
 	draw_sprite(sSpotType,type,x,y);
 
-if(global.curspot==self.id)
+if(global.curspot==spotid)
 	draw_sprite(sPlayer,0,x,y);

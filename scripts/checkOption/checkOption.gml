@@ -16,7 +16,7 @@ function checkOption(index, cost, selected){
 function performOption(index, card, hand, deck) {
 	var cost = getOptionCost(index);
 	var selected = getSelected(oCard, oCoin);
-			
+	
 	switch(index) {
 		case 1: {
 			global.chooseenemystate = true;
@@ -66,8 +66,11 @@ function performOption(index, card, hand, deck) {
 		}
 	}
 	
-	if(index!=1&&index!=2) {
+	
+	if(index!=1)
 		optionPay(cost,selected);
+	
+	if(index!=1&&index!=2) {
 		discardCard(card,hand,oCardGameControl.discard);
 		resetAllCardsAndCoins();
 	}

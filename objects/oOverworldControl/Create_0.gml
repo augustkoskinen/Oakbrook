@@ -16,11 +16,13 @@ var endy = 0;
 
 var curx = startx;
 var cury = starty-spacedis;
+var curid = 1;
 
-var spot = instance_create_depth(curx,cury+spacedis,0,oSpot);
+var spot = noone;
+
+spot = instance_create_depth(curx,cury+spacedis,0,oSpot);
+spot.spotid = curid;
 spot.level = 1;
-global.curspot = spot;
-
 array_push(spotlist,array_create(1,spot));
 
 global.maxlevel = floor(room_height/spacedis)-2
@@ -33,8 +35,11 @@ for(var curlevel = 2; curlevel < floor(room_height/spacedis)-1; curlevel++) {
 	var curspots = array_create(0);
 	
 	for(var i = 0; i < rep; i++) {
+		curid++;
+		
 		spot = instance_create_layer(irandom_range(-16,16)+curx+spotsepdis*min(rep-1,1)-(6-rep)*(i/rep)*spotsepdis,cury,"Path",oSpot);
 		spot.level = curlevel;
+		spot.spotid = curid;
 		
 		var swap = irandom_range(0,5)==0
 		var specialtype = irandom_range(2,7)
@@ -53,6 +58,26 @@ for(var curlevel = 2; curlevel < floor(room_height/spacedis)-1; curlevel++) {
 				else
 					spot.type = 1;
 			}
+		
+		if(spot.type == 1) {
+			spot.enemystat = getEnemyStat(global.level);
+		} else if(spot.type==3) {
+			for(var j = 0; j < 3; j++) {
+				var card = instance_create_layer(0,0,"Cards",oCard);
+				array_push(spot.holdcard,{
+					index: max(ceil(global.level/3)-1+irandom_range(1,-1),1),
+					type: irandom_range(0,3)
+				})
+			}
+		} else if(spot.type==5) {
+			for(var j = 0; j < 3; j++) {
+				var card = instance_create_layer(0,0,"Cards",oCard);
+				array_push(spot.holdcard,{
+					index: max(ceil(global.level/3)+irandom_range(1,0),1),
+					type: irandom_range(0,3)
+				})
+			}
+		}
 		
 		array_push(curspots,spot);
 	}
@@ -139,6 +164,8 @@ for(var i = 0; i < array_length(spotlist)-1; i++) {
 			
 			array_push(nextspot.spotfrom,curspot)
 			array_push(curspot.spotto,nextspot)
+			array_push(nextspot.spotfromid,curspot.spotid)
+			array_push(curspot.spottoid,nextspot.spotid)
 			
 			createPath(curspot,nextspot)
 			
@@ -152,6 +179,8 @@ for(var i = 0; i < array_length(spotlist)-1; i++) {
 			
 			array_push(nextspot.spotfrom,curspot)
 			array_push(curspot.spotto,nextspot)
+			array_push(nextspot.spotfromid,curspot.spotid)
+			array_push(curspot.spottoid,nextspot.spotid)
 			
 			createPath(curspot,nextspot)
 			
@@ -173,6 +202,11 @@ while(ds_list_size(colinst)>0) {
 	ds_list_delete(colinst,0);
 }
 
+if(global.loadGame) {
+	with(oSpot) {
+		if(!loaded) instance_destroy();
+	}
+}
 
 //vars
 choosecards = array_create(0);

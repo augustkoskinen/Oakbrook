@@ -29,7 +29,7 @@ var enemy =  instance_create_layer(87-16,40-24,"Cards",oEnemy)
 
 if(room!=rmTutorial) {
 	enemy.type = 1;
-	var enemystats = getEnemyStat(global.level);
+	var enemystats = global.curspotid.enemystat;
 	enemy.hp = enemystats[0];
 	enemy.curhp = enemystats[0];
 	enemy.hptype = enemystats[1];

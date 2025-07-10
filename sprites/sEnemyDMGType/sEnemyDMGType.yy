@@ -2,7 +2,7 @@
   "$GMSprite":"",
   "%Name":"sEnemyDMGType",
   "bboxMode":0,
-  "bbox_bottom":10,
+  "bbox_bottom":16,
   "bbox_left":0,
   "bbox_right":10,
   "bbox_top":0,

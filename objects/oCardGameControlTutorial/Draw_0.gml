@@ -1,11 +1,12 @@
+performedaction = -1;
+
 if(global.startCardGame) {
 	global.startCardGame = false;
-    deck = array_shuffle(oCardControl.cards);
-	for(var i = 0; i < oCardControl.handmax; i++) {
-		drawCard(array_get(deck,0), hand, deck);
-	}
+    deck = global.cards;
+	drawCard(array_get(deck,0), hand, deck);
+	//drawCard(array_get(deck,0), hand, deck);
 	
-	drawCoin(oCardControl.coinmax);
+	drawCoin(1);
 }
 depth = global.depthcount-100;
 
@@ -44,68 +45,84 @@ if(curoptionselect!=noone) {
 	var cost = noone;
 	
 	for(var i = array_length(options)-1; i >= 0; i--) {
-		if(!global.chooseenemystate&&!global.enemyturn) {
-			cost = getOptionCost(array_get(options,i));
-			var selected = getSelected(oCard, oCoin);
-			var check = checkOption(array_get(options,i), cost, selected);
-			
-			col = point_in_rectangle(mouse_x,mouse_y,originx,originy+i*10,originx+30,originy+i*10+9);
-			
-			if(global.canTakeAction&&!global.paused) {
-				if(col) {//&&global.hoverid == noone
-					if(check) {
-							if(global.mousedown) {
-								performOption(array_get(options,i), curoptionselect, hand, deck);
-						
-								global.mousedown = false;
-							}
-			
-							shader_set(shWhiteOutline)
-							var texelW = texture_get_texel_width(sprite_get_texture(sOption,array_get(options,i)))
-							var texelH = texture_get_texel_height(sprite_get_texture(sOption,array_get(options,i)))
-							shader_set_uniform_f(pixelDims,texelW,texelH)
+		col = false;
+		
+		if(array_get(options,i)==1||array_length(global.achievements)>5) {
+			if(array_get(options,i)!=2&&array_length(global.achievements)==7) {
+				draw_set_alpha(0.5);
+			} else if(array_get(options,i)!=3&&array_length(global.achievements)==8) {
+				draw_set_alpha(0.5);
+			} else if(array_get(options,i)!=1&&array_length(global.achievements)==10) {
+				draw_set_alpha(0.5);
+			} else if(array_get(options,i)!=1&&array_length(global.achievements)==13) {
+				draw_set_alpha(0.5);
+			} if(array_get(options,i)!=1&&array_length(global.achievements)==14) {
+				draw_set_alpha(0.5);
+			} else if(!global.chooseenemystate&&!global.enemyturn) {
+				cost = getOptionCost(array_get(options,i));
+				var selected = getSelected(oCard, oCoin);
+				var check = checkOption(array_get(options,i), cost, selected);
 				
-							global.hoverid = self;
-							anyshaderyes = true;
-					} else {
+				col = point_in_rectangle(mouse_x,mouse_y,originx,originy+i*10,originx+30,originy+i*10+9);
+				
+				if(global.canTakeAction) {
+					if(col) {//&&global.hoverid == noone
+						if(check) {
+							if(!global.paused) {
+								if(global.mousedown) {
+									performOption(array_get(options,i), curoptionselect, hand, deck);
+									performedaction = array_get(options,i);
+									global.mousedown = false;
+								}
+			
+								shader_set(shWhiteOutline)
+								var texelW = texture_get_texel_width(sprite_get_texture(sOption,array_get(options,i)))
+								var texelH = texture_get_texel_height(sprite_get_texture(sOption,array_get(options,i)))
+								shader_set_uniform_f(pixelDims,texelW,texelH)
+				
+								global.hoverid = self;
+								anyshaderyes = true;
+							}
+						} else {
+							draw_set_alpha(0.5);
+						}
+					} else if(!check) {
 						draw_set_alpha(0.5);
 					}
-				} else if(!check) {
-					draw_set_alpha(0.5);
-				}
-			}
-		} else {
-			draw_set_alpha(0.5);
-		}
-		
-		draw_sprite(sOption,array_get(options,i),originx,originy+i*10);
-		
-		draw_set_alpha(1.0);
-		shader_reset();
-		
-		if(col) {
-			shader_set(shWhiteOutline)
-			var texelW = texture_get_texel_width(sprite_get_texture(sOption,array_get(options,i)))
-			var texelH = texture_get_texel_height(sprite_get_texture(sOption,array_get(options,i)))
-			shader_set_uniform_f(pixelDims,texelW,texelH)
-			
-			if(originx<=112) {
-				if(cost[0]==0&&cost[1]!=0) {
-					draw_sprite(sCoinCost,cost[1],originx+29,originy+i*10+1);
-				} else {
-					draw_sprite(sCardCost,cost[0],originx+29,originy+i*10+1);
-					draw_sprite(sCoinCost,cost[1],originx+40,originy+i*10+1);
 				}
 			} else {
-				if(cost[0]==0&&cost[1]!=0) {
-					draw_sprite(sCoinCost,cost[1],originx-13,originy+i*10+1);
-				} else {
-					draw_sprite(sCardCost,cost[0],originx-13,originy+i*10+1);
-					draw_sprite(sCoinCost,cost[1],originx-25,originy+i*10+1);
-				}
+				draw_set_alpha(0.5);
 			}
-			
+		
+			draw_sprite(sOption,array_get(options,i),originx,originy+i*10);
+		
+			draw_set_alpha(1.0);
 			shader_reset();
+		
+			if(col&&!global.paused) {
+				shader_set(shWhiteOutline)
+				var texelW = texture_get_texel_width(sprite_get_texture(sOption,array_get(options,i)))
+				var texelH = texture_get_texel_height(sprite_get_texture(sOption,array_get(options,i)))
+				shader_set_uniform_f(pixelDims,texelW,texelH)
+			
+				if(originx<=112) {
+					if(cost[0]==0&&cost[1]!=0) {
+						draw_sprite(sCoinCost,cost[1],originx+29,originy+i*10+1);
+					} else {
+						draw_sprite(sCardCost,cost[0],originx+29,originy+i*10+1);
+						draw_sprite(sCoinCost,cost[1],originx+40,originy+i*10+1);
+					}
+				} else {
+					if(cost[0]==0&&cost[1]!=0) {
+						draw_sprite(sCoinCost,cost[1],originx-13,originy+i*10+1);
+					} else {
+						draw_sprite(sCardCost,cost[0],originx-13,originy+i*10+1);
+						draw_sprite(sCoinCost,cost[1],originx-25,originy+i*10+1);
+					}
+				}
+			
+				shader_reset();
+			}
 		}
 	}
 }
@@ -113,8 +130,15 @@ if(curoptionselect!=noone) {
 if(array_length(enemyturnsequence)>0) {
 	global.enemyturn = true;
 	
-	enemycounter-=delta_time/1000000;
-	if(enemycounter<=0) {
+	if(!actionpause) {
+		if(global.won==0)
+			enemycounter-=delta_time/1000000;
+	} else if(global.mousedown) {
+		actionpause = false;
+		global.mousedown = false;
+	}
+	
+	if(enemycounter<=0&&global.won==0) {
 		array_delete(enemyturnsequence,0,1);
 		if(array_length(enemyturnsequence)==2) {
 			var dmg = array_get(enemyarray, 0).dmg;
@@ -144,16 +168,21 @@ if(array_length(enemyturnsequence)>0) {
 			if(global.playerhealth<=0) {//LOSE CONDITION ================================
 				moveDiscardToDeck(deck,discard);
 				global.won = -1;
-				
 			}
-			attackboosted = false;
+			
+			if(array_length(global.achievements)<13) {
+				actionpause = true;
+			}
+			
 		} else if(array_length(enemyturnsequence)==1) {
-			for(var i = 0; i < oCardControl.handmax; i++) {
+			for(var i = 0; i < global.handmax; i++) {
 				if(array_length(deck)>0)
 					drawCard(array_get(deck,0), hand, deck);
 			}
 			
-			resetCoins(oCardControl.coinmax);
+			resetCoins(global.coinmax);
+		} else {
+			actionpause = false;
 		}
 		
 		if(array_length(enemyturnsequence)>0) {
@@ -165,7 +194,11 @@ if(array_length(enemyturnsequence)>0) {
 }
 
 if(!global.chooseenemystate&&!global.enemyturn) {
-	if(point_in_rectangle(mouse_x,mouse_y,51-16-4,105-32-3,51-16+4,105-32+3)&&global.canTakeAction&&!global.paused) {
+	if(point_in_rectangle(mouse_x,mouse_y,51-16-4,105-32-3,51-16+4,105-32+3)&&global.canTakeAction&&!global.paused
+		&&((selectedattack!=noone&&array_length(global.achievements)==3)||
+		(selectedattack!=noone&&array_length(global.achievements)==10)||
+		(selectedattack!=noone&&array_length(global.achievements)==14))
+	) {
 		//if(global.hoverid == noone) {
 			shader_set(shWhiteOutline)
 			var texelW = texture_get_texel_width(sprite_get_texture(sStone,0))
@@ -176,6 +209,9 @@ if(!global.chooseenemystate&&!global.enemyturn) {
 			if(global.mousedown) {
 				discardAll(true)
 				global.mousedown = false;
+				
+				if(array_length(global.achievements)<13)
+					actionpause = true;
 			}
 			
 			anyshaderyes = true;
@@ -195,10 +231,10 @@ if(!anyshaderyes&&global.hoverid == self) {
 	global.hoverid = noone;
 }
 
-for(var i = 0; i < oCardControl.idols; i++) {
+for(var i = 0; i < global.idols; i++) {
 	draw_sprite(sVesselIdol,1,12+i*12,137)
 }
 
-for(var i = 0; i < oCardControl.vessels; i++) {
+for(var i = 0; i < global.vessels; i++) {
 	draw_sprite(sVesselIdol,0,12+i*12,137+14)
 }

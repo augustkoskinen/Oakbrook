@@ -32,7 +32,6 @@ function discardAll(doDamage) {
 				
 	resetAllCardsAndCoins();
 	array_get(oCardGameControl.enemyarray, 0).attacker = noone;
-	
 	if(array_get(oCardGameControl.enemyarray, 0).curhp<=0) {
 		global.won = 1;
 		
@@ -64,7 +63,15 @@ function moveDiscardToDeck(deck, discard) {
 		array_delete(discard,0,1)
 	}
 	
-	array_shuffle(deck);
+	if(room!=rmTutorial) {
+		var newdeck = array_shuffle(deck);
+		array_delete(deck,0,array_length(deck));
+	
+		while(array_length(newdeck)!=0) {
+			array_push(deck,array_get(newdeck,0));
+			array_delete(newdeck,0,1);
+		}
+	}
 }
 
 function resetAllCardsAndCoins() {
@@ -126,6 +133,16 @@ function drawCard(card, hand, deck){
 		array_delete(deck,0,1);
 		
 		makeCardAvailable(card);
-		card.holdx = 68-16+(array_length(hand)-1)*19;
+		
+		var curx = 52;
+		
+		while(collision_rectangle(curx,116-24,curx+18,120,oCard,false,true)) {
+			curx += 19;
+		}
+		
+		card.holdx = curx;
+		
+		card.x = curx;
+		card.y = 116-24;
 	}
 }

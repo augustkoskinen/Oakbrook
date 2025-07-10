@@ -1,6 +1,6 @@
-if(global.chooseenemystate) {
+if(global.chooseenemystate&&global.canTakeAction) {
 	if(attacker==noone) {
-		if(collision_point(mouse_x,mouse_y,self,false,false)) {
+		if(collision_point(mouse_x,mouse_y,self,false,false)&&!global.paused) {
 			shader_set(shWhiteOutline)
 			var texelW = texture_get_texel_width(sprite_get_texture(sprite_index,type))
 			var texelH = texture_get_texel_height(sprite_get_texture(sprite_index,type))
@@ -23,7 +23,7 @@ shader_reset();
 draw_sprite(sEnemyHPType,hptype+1,x,y)
 draw_sprite(sEnemyDMGType,dmgtype+1,x,y)
 
-draw_sprite(sEnemyHP,curhp,x,y)
+draw_sprite(sEnemyHP,max(curhp,0),x,y)
 draw_sprite(sEnemyDMG,dmg,x,y)
 
 draw_set_alpha(1.0);
